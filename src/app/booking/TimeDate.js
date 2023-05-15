@@ -36,10 +36,15 @@ const dates = [
 const TimeDate = () => {
   return (
     <div className="timedate">
-      {dates.map(({ label, times }) => (
+      {dates.map(({ label, times }, index) => (
         <div className="timedate__container" key={label}>
           <div className="timedate__head">
-            <p>06</p>
+            <p
+              style={{
+                color: index === 3 ? "red" : index === 5 ? "blue" : "",
+              }}>
+              06
+            </p>
             <span>{label}</span>
           </div>
           <div className="timedate__times">
