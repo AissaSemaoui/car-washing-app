@@ -35,6 +35,10 @@ body {
   border-top: 1px solid var(--mantine-color-gray-4);
 }
 
+.hero h1 {
+  padding: 1.5rem 0rem;
+}
+
 .hero__content--sm {
   display: none;
   font-size: 12px;
@@ -100,6 +104,10 @@ body {
 }
 
 @media only screen and (max-width: 768px) {
+  .hero h1 {
+    margin: auto;
+  }
+
   .hero__content {
     border-top: none;
     max-width: 100%;
@@ -149,7 +157,8 @@ body {
 /*? -------------------------------- Container ------------------------------- */
 
 .container {
-  margin: auto auto;
+  margin-left: auto;
+  margin-right: auto;
   max-width: 1320px;
   width: calc(100% - 30px); /* subtracting 30px to account for padding */
   padding: unset 15px;
@@ -163,13 +172,13 @@ body {
 
 @media screen and (max-width: 1200px) {
   .container {
-    max-width: 85%;
+    max-width: 90%;
   }
 }
 
 @media screen and (max-width: 992px) {
   .container {
-    max-width: 80%;
+    max-width: 90%;
   }
 }
 
@@ -182,6 +191,6 @@ body {
 @media screen and (max-width: 576px) {
   .container {
     max-width: 100%;
-    padding: 0 10px;
+    padding: unset 10px;
   }
 }

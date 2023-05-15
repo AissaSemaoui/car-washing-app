@@ -2,6 +2,10 @@
 import { Button, Card, Flex, Stepper } from "@mantine/core";
 import React, { useState } from "react";
 import "./booking.css";
+import VehicleChoice from "./VehicleChoice";
+import Packages from "./Packages";
+import ExtraServices from "./ExtraServices";
+import UserDetails from "./UserDetails";
 
 function Booking() {
   const [active, setActive] = useState(1);
@@ -11,23 +15,27 @@ function Booking() {
     setActive((current) => (current > 0 ? current - 1 : current));
 
   return (
-    <Card shadow="md" p="xl" radius="xl" className="container">
+    <Card className="container" my="lg" shadow="md" px="lg" py="md" radius="xl">
       <Card.Section>
         <Stepper
           active={active}
           onStepClick={setActive}
           classNames={{
             steps: "stepper__control--wrapper",
+            content: "stepper__content--wrapper",
           }}
         >
-          <Stepper.Step label="First step" description="Create an account">
-            Step 1 content: Create an account
+          <Stepper.Step label="Vehicle choice">
+            <VehicleChoice />
           </Stepper.Step>
-          <Stepper.Step label="Second step" description="Verify email">
-            Step 2 content: Verify email
+          <Stepper.Step label="Packages">
+            <Packages />
           </Stepper.Step>
-          <Stepper.Step label="Final step" description="Get full access">
-            Step 3 content: Get full access
+          <Stepper.Step label="Extra services">
+            <ExtraServices />
+          </Stepper.Step>
+          <Stepper.Step label="User details">
+            <UserDetails />
           </Stepper.Step>
           <Stepper.Completed>
             Completed, click back button to get to previous step
@@ -35,25 +43,14 @@ function Booking() {
         </Stepper>
       </Card.Section>
       <Card.Section withBorder inheritPadding py="md">
-        <Button
-          onClick={nextStep}
-          size="lg"
-          style={{
-            float: "right",
-          }}
-        >
-          Next
-        </Button>
-        <Button
-          variant="outline"
-          onClick={prevStep}
-          size="lg"
-          style={{
-            float: "left",
-          }}
-        >
-          Prev
-        </Button>
+        <Flex justify="space-between">
+          <Button variant="outline" onClick={prevStep} size="lg">
+            Prev
+          </Button>
+          <Button onClick={nextStep} size="lg">
+            Next
+          </Button>
+        </Flex>
       </Card.Section>
     </Card>
   );

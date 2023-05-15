@@ -3,7 +3,6 @@ h1 {
   font-weight: bold;
   line-height: 1.3;
   color: var(--mantine-color-gray-8);
-  padding: 1.5rem 0rem;
 }
 
 p {
@@ -20,7 +19,6 @@ a {
   h1 {
     max-width: 70vw;
     text-align: center;
-    margin: auto;
   }
   p {
     font-size: 12px;
