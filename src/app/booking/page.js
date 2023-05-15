@@ -7,6 +7,7 @@ import Packages from "./Packages";
 import ExtraServices from "./ExtraServices";
 import UserDetails from "./UserDetails";
 import Complete from "./Complete";
+import TimeDate from "./TimeDate";
 
 function Booking() {
   const [formData, setFormData] = useState();
@@ -27,36 +28,33 @@ function Booking() {
           classNames={{
             steps: "stepper__control--wrapper",
             content: "stepper__content--wrapper",
-          }}
-        >
+          }}>
           <Stepper.Step
             label="Vehicle choice"
-            icon={<img src="./images/step 1.png" className="stepper__icon" />}
-          >
+            icon={<img src="./images/step 1.png" className="stepper__icon" />}>
             <VehicleChoice formData={formData} setFormData={setFormData} />
           </Stepper.Step>
           <Stepper.Step
             label="Packages"
-            icon={<img src="./images/step 2.png" className="stepper__icon" />}
-          >
+            icon={<img src="./images/step 2.png" className="stepper__icon" />}>
             <Packages />
           </Stepper.Step>
           <Stepper.Step
             label="Extra services"
-            icon={<img src="./images/step 3.png" className="stepper__icon" />}
-          >
+            icon={<img src="./images/step 3.png" className="stepper__icon" />}>
             <ExtraServices />
+          </Stepper.Step>
+          <Stepper.Step label="Time & Date">
+            <TimeDate />
           </Stepper.Step>
           <Stepper.Step
             label="User details"
-            icon={<img src="./images/step 5.png" className="stepper__icon" />}
-          >
+            icon={<img src="./images/step 5.png" className="stepper__icon" />}>
             <UserDetails />
           </Stepper.Step>
           <Stepper.Step
             label="Complete"
-            icon={<img src="./images/step 6.png" className="stepper__icon" />}
-          >
+            icon={<img src="./images/step 6.png" className="stepper__icon" />}>
             <Complete />
           </Stepper.Step>
           <Stepper.Completed>
