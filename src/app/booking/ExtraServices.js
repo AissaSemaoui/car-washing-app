@@ -25,7 +25,7 @@ const ServiceCard = ({ title, description, image, features }) => (
       <p>{description}</p>
       <Flex className="extra-services__card--features" align="center">
         {features.map((feature) => (
-          <div className="extra-services__features--item">
+          <div key={feature} className="extra-services__features--item">
             {feature?.icon} {feature?.feature}
           </div>
         ))}

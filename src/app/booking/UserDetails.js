@@ -114,7 +114,7 @@ function UserDetails() {
         <h3>Payment</h3>
         <Flex justify="space-between" gap={8}>
           {PAYMENT_METHODS_DATA.map((payment) => (
-            <PaymentMethod {...payment} />
+            <PaymentMethod key={payment?.name} {...payment} />
           ))}
         </Flex>
       </div>

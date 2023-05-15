@@ -58,8 +58,7 @@ const PackageCard = ({ title, features, duration, salon }) => (
     <Flex
       className="package__card--header"
       justify="space-between"
-      align="center"
-    >
+      align="center">
       <h3>{title}</h3>
       <div className="package__salon--card">
         <h4>Salon & jeep</h4>
@@ -68,7 +67,7 @@ const PackageCard = ({ title, features, duration, salon }) => (
     </Flex>
     <ul className="package__card--features">
       {features.map((feature) => (
-        <li className="package__card--feature">
+        <li key={feature} className="package__card--feature">
           <TickCircle size="24" color="#37d67a" /> {feature}
         </li>
       ))}
