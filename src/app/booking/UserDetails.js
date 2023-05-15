@@ -1,7 +1,9 @@
-import { TextInput } from "@mantine/core";
+import { Flex, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
 import React from "react";
+
+const PaymentMethod = () => {};
 
 function UserDetails() {
   const userForm = useForm({
@@ -86,6 +88,10 @@ function UserDetails() {
           className="user-details__input"
           {...userForm.getInputProps("house")}
         />
+      </div>
+      <div>
+        <h3>Payment</h3>
+        <Flex></Flex>
       </div>
     </form>
   );
