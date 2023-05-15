@@ -6,6 +6,7 @@ import VehicleChoice from "./VehicleChoice";
 import Packages from "./Packages";
 import ExtraServices from "./ExtraServices";
 import UserDetails from "./UserDetails";
+import TimeDate from "./TimeDate";
 
 function Booking() {
   const [active, setActive] = useState(1);
@@ -33,6 +34,9 @@ function Booking() {
           </Stepper.Step>
           <Stepper.Step label="Extra services">
             <ExtraServices />
+          </Stepper.Step>
+          <Stepper.Step label="Time & Date">
+            <TimeDate />
           </Stepper.Step>
           <Stepper.Step label="User details">
             <UserDetails />
