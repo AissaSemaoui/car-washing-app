@@ -14,7 +14,7 @@ function Booking() {
 
   const [active, setActive] = useState(1);
   const nextStep = () =>
-    setActive((current) => (current < 3 ? current + 1 : current));
+    setActive((current) => (current < 6 ? current + 1 : current));
   const prevStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
 
@@ -44,7 +44,9 @@ function Booking() {
             icon={<img src="./images/step 3.png" className="stepper__icon" />}>
             <ExtraServices />
           </Stepper.Step>
-          <Stepper.Step label="Time & Date">
+          <Stepper.Step
+            label="Time & Date"
+            icon={<img src="./images/step 4.png" className="stepper__icon" />}>
             <TimeDate />
           </Stepper.Step>
           <Stepper.Step
