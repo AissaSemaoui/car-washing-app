@@ -161,7 +161,8 @@ body {
   margin-right: auto;
   max-width: 1320px;
   width: calc(100% - 30px); /* subtracting 30px to account for padding */
-  padding: unset 15px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 @media screen and (max-width: 1366px) {
@@ -191,6 +192,7 @@ body {
 @media screen and (max-width: 576px) {
   .container {
     max-width: 100%;
-    padding: unset 10px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 }

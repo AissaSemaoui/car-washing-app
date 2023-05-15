@@ -19,7 +19,7 @@ function Booking() {
     setActive((current) => (current > 0 ? current - 1 : current));
 
   return (
-    <Card className="container" my="lg" shadow="md" px="lg" py="md" radius="xl">
+    <Card className="stepper__card container" shadow="md" radius="xl">
       <Card.Section>
         <Stepper
           active={active}

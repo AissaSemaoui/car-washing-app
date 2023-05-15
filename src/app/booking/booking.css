@@ -13,6 +13,11 @@
   overflow: hidden;
 }
 
+.stepper__card {
+  margin: 1.5rem auto;
+  padding: 1rem 1.5rem;
+}
+
 /*? ----------------------------- Vehicle Choice ----------------------------- */
 
 .vehicle-choice__card {
