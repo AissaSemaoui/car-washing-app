@@ -8,7 +8,7 @@
 }
 
 .stepper__icon {
-  width: 85%;
+  width: 25px;
   object-fit: contain;
   overflow: hidden;
 }

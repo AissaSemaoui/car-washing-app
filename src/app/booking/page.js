@@ -31,32 +31,62 @@ function Booking() {
           }}>
           <Stepper.Step
             label="Vehicle choice"
-            icon={<img src="./images/step 1.png" className="stepper__icon" />}>
+            completedIcon={
+              <img src="./images/step 1.png" className="stepper__icon" />
+            }
+            icon={
+              <img src="./images/dark step 1.png" className="stepper__icon" />
+            }>
             <VehicleChoice formData={formData} setFormData={setFormData} />
           </Stepper.Step>
           <Stepper.Step
             label="Packages"
-            icon={<img src="./images/step 2.png" className="stepper__icon" />}>
+            completedIcon={
+              <img src="./images/step 2.png" className="stepper__icon" />
+            }
+            icon={
+              <img src="./images/dark step 2.png" className="stepper__icon" />
+            }>
             <Packages />
           </Stepper.Step>
           <Stepper.Step
             label="Extra services"
-            icon={<img src="./images/step 3.png" className="stepper__icon" />}>
+            completedIcon={
+              <img src="./images/step 3.png" className="stepper__icon" />
+            }
+            icon={
+              <img src="./images/dark step 3.png" className="stepper__icon" />
+            }>
             <ExtraServices />
           </Stepper.Step>
           <Stepper.Step
             label="Time & Date"
-            icon={<img src="./images/step 4.png" className="stepper__icon" />}>
+            completedIcon={
+              <img src="./images/step 4.png" className="stepper__icon" />
+            }
+            icon={
+              <img src="./images/dark step 4.png" className="stepper__icon" />
+            }>
             <TimeDate />
           </Stepper.Step>
           <Stepper.Step
             label="User details"
-            icon={<img src="./images/step 5.png" className="stepper__icon" />}>
+            completedIcon={
+              <img src="./images/step 5.png" className="stepper__icon" />
+            }
+            icon={
+              <img src="./images/dark step 5.png" className="stepper__icon" />
+            }>
             <UserDetails />
           </Stepper.Step>
           <Stepper.Step
             label="Complete"
-            icon={<img src="./images/step 6.png" className="stepper__icon" />}>
+            completedIcon={
+              <img src="./images/step 6.png" className="stepper__icon" />
+            }
+            icon={
+              <img src="./images/dark step 6.png" className="stepper__icon" />
+            }>
             <Complete />
           </Stepper.Step>
           <Stepper.Completed>
