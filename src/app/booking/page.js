@@ -8,13 +8,40 @@ import ExtraServices from "./ExtraServices";
 import UserDetails from "./UserDetails";
 import Complete from "./Complete";
 import TimeDate from "./TimeDate";
+import { useForm } from "@mantine/form";
 
 function Booking() {
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState({
+    selectedVehicle: "",
+    selectedPackage: "",
+    extraServices: [],
+    userDetails: {
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
+      area: "",
+      block: "",
+      avenue: "",
+      street: "",
+      house: "",
+    },
+    selectedPaymentMethod: "",
+  });
+
+  const userDetailsForm = useForm({
+    initialValues: formData?.userDetails,
+  });
 
   const [active, setActive] = useState(1);
-  const nextStep = () =>
-    setActive((current) => (current < 6 ? current + 1 : current));
+  const nextStep = () => {
+    if (active !== 4)
+      setActive((current) => (current < 5 ? current + 1 : current));
+    else
+      userDetailsForm.onSubmit((values) => {
+        setFormData((prev) => ({ ...prev, userDetails: values }));
+        setActive((current) => (current < 5 ? current + 1 : current));
+      })();
+  };
   const prevStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
 
@@ -37,7 +64,10 @@ function Booking() {
             icon={
               <img src="./images/dark step 1.png" className="stepper__icon" />
             }>
-            <VehicleChoice formData={formData} setFormData={setFormData} />
+            <VehicleChoice
+              selectedVehicle={formData?.selectedVehicle}
+              setFormData={setFormData}
+            />
           </Stepper.Step>
           <Stepper.Step
             label="Packages"
@@ -47,7 +77,10 @@ function Booking() {
             icon={
               <img src="./images/dark step 2.png" className="stepper__icon" />
             }>
-            <Packages />
+            <Packages
+              selectedPackage={formData?.selectedPackage}
+              setFormData={setFormData}
+            />
           </Stepper.Step>
           <Stepper.Step
             label="Extra services"
@@ -57,7 +90,10 @@ function Booking() {
             icon={
               <img src="./images/dark step 3.png" className="stepper__icon" />
             }>
-            <ExtraServices />
+            <ExtraServices
+              extraServices={formData?.extraServices}
+              setFormData={setFormData}
+            />
           </Stepper.Step>
           <Stepper.Step
             label="Time & Date"
@@ -77,9 +113,14 @@ function Booking() {
             icon={
               <img src="./images/dark step 5.png" className="stepper__icon" />
             }>
-            <UserDetails />
+            <UserDetails
+              userDetailsForm={userDetailsForm}
+              userDetails={formData?.userDetails}
+              selectedPaymentMethod={formData?.selectedPaymentMethod}
+              setFormData={setFormData}
+            />
           </Stepper.Step>
-          <Stepper.Step
+          <Stepper.Completed
             label="Complete"
             completedIcon={
               <img src="./images/step 6.png" className="stepper__icon" />
@@ -87,9 +128,6 @@ function Booking() {
             icon={
               <img src="./images/dark step 6.png" className="stepper__icon" />
             }>
-            <Complete />
-          </Stepper.Step>
-          <Stepper.Completed>
             <Complete />
           </Stepper.Completed>
         </Stepper>

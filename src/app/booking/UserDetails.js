@@ -19,31 +19,27 @@ const PAYMENT_METHODS_DATA = [
   },
 ];
 
-const PaymentMethod = ({ name, img }) => (
-  <div className="payment-method__card">
-    {typeof img === "string" ? <img src={img} alt={name} /> : img}
+const PaymentMethod = ({ name, img, className, onClick }) => (
+  <div className={`payment-method__card ${className}`} onClick={onClick}>
     <h4>{name}</h4>
+    {typeof img === "string" ? <img src={img} alt={name} /> : img}
   </div>
 );
 
-function UserDetails() {
-  const userForm = useForm({
-    initialValues: {
-      firstName: "",
-      lastName: "",
-      phoneNumber: "",
-      area: "",
-      block: "",
-      avenue: "",
-      street: "",
-      house: "",
-    },
-  });
-
-  const handleSubmit = (values) => console.log(values);
+function UserDetails({
+  userDetailsForm,
+  userDetails,
+  selectedPaymentMethod,
+  setFormData,
+}) {
+  const handleSelectPaymentMethod = (selectedPaymentMethod) =>
+    setFormData((prev) => ({
+      ...prev,
+      selectedPaymentMethod,
+    }));
 
   return (
-    <form onSubmit={userForm.onSubmit(handleSubmit)} className="user-details">
+    <form className="user-details">
       <div className="user-details__inputs--wrapper">
         <TextInput
           label="First name"
@@ -51,7 +47,7 @@ function UserDetails() {
           size="md"
           variant="filled"
           className="user-details__input"
-          {...userForm.getInputProps("firstName")}
+          {...userDetailsForm.getInputProps("firstName")}
         />
         <TextInput
           label="Last name"
@@ -59,7 +55,7 @@ function UserDetails() {
           size="md"
           variant="filled"
           className="user-details__input"
-          {...userForm.getInputProps("lastName")}
+          {...userDetailsForm.getInputProps("lastName")}
         />
         <TextInput
           label="Phone number"
@@ -67,7 +63,7 @@ function UserDetails() {
           size="md"
           variant="filled"
           className="user-details__input"
-          {...userForm.getInputProps("phoneNumber")}
+          {...userDetailsForm.getInputProps("phoneNumber")}
         />
         <TextInput
           label="Area"
@@ -75,7 +71,7 @@ function UserDetails() {
           size="md"
           variant="filled"
           className="user-details__input"
-          {...userForm.getInputProps("area")}
+          {...userDetailsForm.getInputProps("area")}
         />
         <TextInput
           label="Block"
@@ -83,7 +79,7 @@ function UserDetails() {
           size="md"
           variant="filled"
           className="user-details__input"
-          {...userForm.getInputProps("block")}
+          {...userDetailsForm.getInputProps("block")}
         />
         <TextInput
           label="Avenue"
@@ -91,7 +87,7 @@ function UserDetails() {
           size="md"
           variant="filled"
           className="user-details__input"
-          {...userForm.getInputProps("avenue")}
+          {...userDetailsForm.getInputProps("avenue")}
         />
         <TextInput
           label="Street"
@@ -99,7 +95,7 @@ function UserDetails() {
           size="md"
           variant="filled"
           className="user-details__input"
-          {...userForm.getInputProps("street")}
+          {...userDetailsForm.getInputProps("street")}
         />
         <TextInput
           label="House"
@@ -107,14 +103,19 @@ function UserDetails() {
           size="md"
           variant="filled"
           className="user-details__input"
-          {...userForm.getInputProps("house")}
+          {...userDetailsForm.getInputProps("house")}
         />
       </div>
       <div className="user-details__payment_methods">
         <h3>Payment</h3>
         <Flex justify="space-between" gap={8}>
           {PAYMENT_METHODS_DATA.map((payment) => (
-            <PaymentMethod key={payment?.name} {...payment} />
+            <PaymentMethod
+              key={payment?.name}
+              {...payment}
+              onClick={() => handleSelectPaymentMethod(payment?.name)}
+              className={selectedPaymentMethod === payment?.name && "selected"}
+            />
           ))}
         </Flex>
       </div>

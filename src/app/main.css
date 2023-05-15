@@ -14,7 +14,7 @@ body {
     ),
     url(../../public/images/bg.jpeg), #f8fcff;
   background-size: fill;
-  min-height: 100%;
+  padding-bottom: 500px;
 }
 
 /*? ------------------------------ Hero Section ------------------------------ */

@@ -4,6 +4,7 @@ import React from "react";
 
 const PACKAGES_DATA = [
   {
+    name: "Basic",
     title: "Basic ✪",
     features: [
       "Lorem Ipsum is simply dummy text of the",
@@ -16,6 +17,7 @@ const PACKAGES_DATA = [
     salon: "3",
   },
   {
+    name: "Plus",
     title: "Plus ✪",
     features: [
       "Lorem Ipsum is simply dummy text of the",
@@ -28,6 +30,7 @@ const PACKAGES_DATA = [
     salon: "7",
   },
   {
+    name: "Premium",
     title: "Premium ✪",
     features: [
       "Lorem Ipsum is simply dummy text of the",
@@ -40,6 +43,7 @@ const PACKAGES_DATA = [
     salon: "28",
   },
   {
+    name: "Standard",
     title: "Standard ✪",
     features: [
       "Lorem Ipsum is simply dummy text of the",
@@ -53,8 +57,8 @@ const PACKAGES_DATA = [
   },
 ];
 
-const PackageCard = ({ title, features, duration, salon }) => (
-  <div className="package__card">
+const PackageCard = ({ title, features, duration, salon, className }) => (
+  <div className={`package__card ${className}`}>
     <Flex
       className="package__card--header"
       justify="space-between"
@@ -66,8 +70,8 @@ const PackageCard = ({ title, features, duration, salon }) => (
       </div>
     </Flex>
     <ul className="package__card--features">
-      {features.map((feature) => (
-        <li key={feature} className="package__card--feature">
+      {features.map((feature, index) => (
+        <li key={index} className="package__card--feature">
           <TickCircle size="24" color="#37d67a" /> {feature}
         </li>
       ))}
@@ -78,12 +82,23 @@ const PackageCard = ({ title, features, duration, salon }) => (
   </div>
 );
 
-function Packages() {
+function Packages({ selectedPackage, setFormData }) {
+  const handleSelect = (selectedPackage) => {
+    setFormData((prev) => ({ ...prev, selectedPackage }));
+  };
+
   return (
     <Grid>
-      {PACKAGES_DATA.map((pacakge_data) => (
-        <Grid.Col span={12} sm={6} key={pacakge_data?.title}>
-          <PackageCard {...pacakge_data} />
+      {PACKAGES_DATA.map((package_data) => (
+        <Grid.Col
+          span={12}
+          sm={6}
+          key={package_data?.title}
+          onClick={() => handleSelect(package_data?.name)}>
+          <PackageCard
+            {...package_data}
+            className={package_data?.name === selectedPackage && "selected"}
+          />
         </Grid.Col>
       ))}
     </Grid>

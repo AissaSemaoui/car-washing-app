@@ -30,7 +30,7 @@
 .vehicle-choice__card:hover {
   border-color: var(--mantine-color-blue-5);
 }
-.vehicle-choice__card:active {
+.vehicle-choice__card.selected {
   border-color: var(--mantine-color-blue-5);
   outline: 1px solid var(--mantine-color-blue-5);
 }
@@ -74,7 +74,7 @@
 .package__card:hover {
   border-color: var(--mantine-color-blue-5);
 }
-.package__card:active {
+.package__card.selected {
   border-color: var(--mantine-color-blue-5);
   outline: 1px solid var(--mantine-color-blue-5);
 }
@@ -192,7 +192,7 @@
 .extra-services__card:hover {
   border-color: var(--mantine-color-blue-5);
 }
-.extra-services__card:active {
+.extra-services__card.selected {
   border-color: var(--mantine-color-blue-5);
   outline: 1px solid var(--mantine-color-blue-5);
 }
@@ -269,14 +269,14 @@
   align-items: center;
   flex: 1;
   padding: 1rem;
-  background: var(--mantine-color-gray-2);
+  background: var(--mantine-color-gray-1);
   border-radius: 4px;
   cursor: pointer;
 }
 .payment-method__card:hover {
-  background: var(--mantine-color-gray-3);
+  background: var(--mantine-color-gray-2);
 }
-.payment-method__card:active {
+.payment-method__card.selected {
   outline: 1px solid var(--mantine-color-blue-6);
 }
 

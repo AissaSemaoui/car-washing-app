@@ -1,6 +1,6 @@
 import { Flex, Grid } from "@mantine/core";
 import { Clock, EmptyWallet } from "iconsax-react";
-import React from "react";
+import React, { useState } from "react";
 
 const EXTRA_SERVICES_DATA = [
   {
@@ -15,8 +15,8 @@ const EXTRA_SERVICES_DATA = [
   },
 ];
 
-const ServiceCard = ({ title, description, image, features }) => (
-  <Flex className="extra-services__card" gap={24}>
+const ServiceCard = ({ title, description, image, features, className }) => (
+  <Flex className={`extra-services__card ${className}`} gap={24}>
     <div>
       <img src={image} alt={title} />
     </div>
@@ -24,8 +24,8 @@ const ServiceCard = ({ title, description, image, features }) => (
       <h2>{title}</h2>
       <p>{description}</p>
       <Flex className="extra-services__card--features" align="center">
-        {features.map((feature) => (
-          <div key={feature} className="extra-services__features--item">
+        {features.map((feature, index) => (
+          <div key={index} className="extra-services__features--item">
             {feature?.icon} {feature?.feature}
           </div>
         ))}
@@ -34,12 +34,38 @@ const ServiceCard = ({ title, description, image, features }) => (
   </Flex>
 );
 
-function ExtraServices() {
+function ExtraServices({ extraServices, setFormData }) {
+  const isServiceExist = (serviceTitle) =>
+    !!extraServices?.find((service) => service === serviceTitle);
+
+  const handleSelect = (serviceTitle) => {
+    let alreadySelected = isServiceExist(serviceTitle);
+
+    if (!alreadySelected)
+      setFormData((prev) => ({
+        ...prev,
+        extraServices: [...(prev.extraServices || []), serviceTitle],
+      }));
+    else
+      setFormData((prev) => ({
+        ...prev,
+        extraServices: prev.filter((service) => service !== serviceTitle),
+      }));
+  };
+
   return (
     <Grid justify="center">
       {EXTRA_SERVICES_DATA.map((service) => (
-        <Grid.Col span={12} sm={8} md={6} key={service?.title}>
-          <ServiceCard {...service} />
+        <Grid.Col
+          span={12}
+          sm={8}
+          md={6}
+          key={service?.title}
+          onClick={() => handleSelect(service?.title)}>
+          <ServiceCard
+            {...service}
+            className={isServiceExist(service?.title) && "selected"}
+          />
         </Grid.Col>
       ))}
     </Grid>

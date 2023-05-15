@@ -2,32 +2,41 @@ import { Flex, Grid } from "@mantine/core";
 import React from "react";
 
 const VEHICLES_DATA = [
-  { label: "Sedan", image: "./images/vehicle 1.png" },
-  { label: "SUV", image: "./images/vehicle 2.png" },
-  { label: "Pickup", image: "./images/vehicle 3.png" },
-  { label: "Bike", image: "./images/vehicle 4.png" },
+  { name: "Sedan", image: "./images/vehicle 1.png" },
+  { name: "SUV", image: "./images/vehicle 2.png" },
+  { name: "Pickup", image: "./images/vehicle 3.png" },
+  { name: "Bike", image: "./images/vehicle 4.png" },
 ];
 
-const VehicleCard = ({ label, image }) => (
+const VehicleCard = ({ name, image, className }) => (
   <Flex
-    className="vehicle-choice__card"
+    className={`vehicle-choice__card ${className}`}
     gap="md"
     align="center"
-    direction="column"
-  >
-    <img src={image} alt={label} />
-    <h3>{label}</h3>
+    direction="column">
+    <img src={image} alt={name} />
+    <h3>{name}</h3>
   </Flex>
 );
 
-function VehicleChoice() {
-  const handleSelect = () => {};
+function VehicleChoice({ selectedVehicle, setFormData }) {
+  const handleSelect = (selectedVehicle) => {
+    setFormData((prev) => ({ ...prev, selectedVehicle }));
+  };
 
   return (
     <Grid>
-      {VEHICLES_DATA.map(({ label, image }) => (
-        <Grid.Col span={12} sm={6} key={label}>
-          <VehicleCard label={label} image={image} />
+      {VEHICLES_DATA.map(({ name, image }) => (
+        <Grid.Col
+          span={12}
+          sm={6}
+          key={name}
+          onClick={() => handleSelect(name)}>
+          <VehicleCard
+            className={selectedVehicle === name && "selected"}
+            name={name}
+            image={image}
+          />
         </Grid.Col>
       ))}
     </Grid>
