@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex } from "@mantine/core";
+import { Button, Flex } from "@mantine/core";
 
 const dates = [
   {
@@ -46,13 +46,15 @@ const TimeDate = () => {
             {times === "Closed" ? (
               <div>Closed</div>
             ) : (
-              new Array(times.to - times.from + 1)
-                .fill("")
-                .map((el, i) => (
-                  <div key={`time in ${label}: ${i}`}>
-                    {(i + times.from).toString().padStart(2, "0")}:00
-                  </div>
-                ))
+              new Array(times.to - times.from + 1).fill("").map((el, i) => (
+                <Button
+                  className="timedate__btn"
+                  variant="subtle"
+                  color="dark"
+                  key={`time in ${label}: ${i}`}>
+                  {(i + times.from).toString().padStart(2, "0")}:00
+                </Button>
+              ))
             )}
           </div>
         </div>

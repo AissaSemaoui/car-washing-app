@@ -45,8 +45,7 @@ function Navbar() {
               className="navbar__navlinks--item"
               color="gray"
               underline={false}
-              component="span"
-            >
+              component="span">
               {name}
             </Anchor>
           </Link>
@@ -59,17 +58,14 @@ function Navbar() {
           defaultValue="English"
           data={["English"]}
         />
-        <Button onClick={open} size="lg">
-          Sign in
-        </Button>
+        <Button size="lg">Sign in</Button>
       </Flex>
       <Burger className="navbar__burger" opened={opened} onClick={toggle} />
       <Drawer
         padding="lg"
         opened={opened}
         onClose={close}
-        className="navbar__drawer"
-      >
+        className="navbar__drawer">
         <nav className="navbar__navlinks">
           {MENU_ITEMS.map(({ name, link }) => (
             <Link key={link} href={link}>
@@ -77,8 +73,7 @@ function Navbar() {
                 className="navbar__navlinks--item"
                 color="gray"
                 underline={false}
-                component="span"
-              >
+                component="span">
                 {name}
               </Anchor>
             </Link>
