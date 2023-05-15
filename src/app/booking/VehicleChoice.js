@@ -21,6 +21,8 @@ const VehicleCard = ({ label, image }) => (
 );
 
 function VehicleChoice() {
+  const handleSelect = () => {};
+
   return (
     <Grid>
       {VEHICLES_DATA.map(({ label, image }) => (

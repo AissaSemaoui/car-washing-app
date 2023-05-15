@@ -7,6 +7,12 @@
   padding: 1rem;
 }
 
+.stepper__icon {
+  width: 85%;
+  object-fit: contain;
+  overflow: hidden;
+}
+
 /*? ----------------------------- Vehicle Choice ----------------------------- */
 
 .vehicle-choice__card {
@@ -234,9 +240,69 @@
 
 /*? ------------------------------ User details ------------------------------ */
 
-.user-details__form--wrapper {
+.user-details__inputs--wrapper {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .user-details__input {
   width: 49%;
+}
+
+.user-details__payment_methods {
+  margin-top: 2rem;
+}
+.user-details__payment_methods h2 {
+  color: var(--mantine-color-gray-9);
+  font-weight: 500;
+}
+
+.payment-method__card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  padding: 1rem;
+  background: var(--mantine-color-gray-2);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.payment-method__card:hover {
+  background: var(--mantine-color-gray-3);
+}
+.payment-method__card:active {
+  outline: 1px solid var(--mantine-color-blue-6);
+}
+
+.payment-method__card img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+/*? ---------------------------- Completed Screen ---------------------------- */
+
+.completed__screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 0;
+  text-align: center;
+}
+.completed__screen img {
+  font-size: 32px;
+  color: var(--mantine-color-gray-9);
+  margin-bottom: 1.5rem;
+}
+.completed__screen h2 {
+  font-size: 32px;
+  color: var(--mantine-color-gray-9);
+  font-weight: 500;
+}
+.completed__screen p {
+  font-size: 20px;
+  color: var(--mantine-color-gray-5);
+  margin-bottom: 1.5rem;
+  max-width: 50`0px;
 }

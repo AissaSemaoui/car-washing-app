@@ -1,9 +1,30 @@
 import { Flex, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { Card } from "iconsax-react";
 
 import React from "react";
 
-const PaymentMethod = () => {};
+const PAYMENT_METHODS_DATA = [
+  {
+    name: "Cash",
+    img: "./images/moneys.png",
+  },
+  {
+    name: "Knet",
+    img: "./images/Knet.png",
+  },
+  {
+    name: "Credit credit",
+    img: <Card size="32" color="#555555" />,
+  },
+];
+
+const PaymentMethod = ({ name, img }) => (
+  <div className="payment-method__card">
+    {typeof img === "string" ? <img src={img} alt={name} /> : img}
+    <h4>{name}</h4>
+  </div>
+);
 
 function UserDetails() {
   const userForm = useForm({
@@ -89,9 +110,13 @@ function UserDetails() {
           {...userForm.getInputProps("house")}
         />
       </div>
-      <div>
+      <div className="user-details__payment_methods">
         <h3>Payment</h3>
-        <Flex></Flex>
+        <Flex justify="space-between" gap={8}>
+          {PAYMENT_METHODS_DATA.map((payment) => (
+            <PaymentMethod {...payment} />
+          ))}
+        </Flex>
       </div>
     </form>
   );

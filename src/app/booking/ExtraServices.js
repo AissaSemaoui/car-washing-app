@@ -38,7 +38,7 @@ function ExtraServices() {
   return (
     <Grid justify="center">
       {EXTRA_SERVICES_DATA.map((service) => (
-        <Grid.Col span={12} sm={8} key={service?.title}>
+        <Grid.Col span={12} sm={8} md={6} key={service?.title}>
           <ServiceCard {...service} />
         </Grid.Col>
       ))}

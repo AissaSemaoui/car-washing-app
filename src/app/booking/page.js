@@ -6,8 +6,11 @@ import VehicleChoice from "./VehicleChoice";
 import Packages from "./Packages";
 import ExtraServices from "./ExtraServices";
 import UserDetails from "./UserDetails";
+import Complete from "./Complete";
 
 function Booking() {
+  const [formData, setFormData] = useState();
+
   const [active, setActive] = useState(1);
   const nextStep = () =>
     setActive((current) => (current < 3 ? current + 1 : current));
@@ -20,25 +23,44 @@ function Booking() {
         <Stepper
           active={active}
           onStepClick={setActive}
+          breakpoint="md"
           classNames={{
             steps: "stepper__control--wrapper",
             content: "stepper__content--wrapper",
           }}
         >
-          <Stepper.Step label="Vehicle choice">
-            <VehicleChoice />
+          <Stepper.Step
+            label="Vehicle choice"
+            icon={<img src="./images/step 1.png" className="stepper__icon" />}
+          >
+            <VehicleChoice formData={formData} setFormData={setFormData} />
           </Stepper.Step>
-          <Stepper.Step label="Packages">
+          <Stepper.Step
+            label="Packages"
+            icon={<img src="./images/step 2.png" className="stepper__icon" />}
+          >
             <Packages />
           </Stepper.Step>
-          <Stepper.Step label="Extra services">
+          <Stepper.Step
+            label="Extra services"
+            icon={<img src="./images/step 3.png" className="stepper__icon" />}
+          >
             <ExtraServices />
           </Stepper.Step>
-          <Stepper.Step label="User details">
+          <Stepper.Step
+            label="User details"
+            icon={<img src="./images/step 5.png" className="stepper__icon" />}
+          >
             <UserDetails />
           </Stepper.Step>
+          <Stepper.Step
+            label="Complete"
+            icon={<img src="./images/step 6.png" className="stepper__icon" />}
+          >
+            <Complete />
+          </Stepper.Step>
           <Stepper.Completed>
-            Completed, click back button to get to previous step
+            <Complete />
           </Stepper.Completed>
         </Stepper>
       </Card.Section>

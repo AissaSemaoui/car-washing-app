@@ -1,6 +1,16 @@
+.navbar {
+  padding: 4rem 0;
+}
+
+.navbar__logo {
+  height: 90px;
+  width: 100%;
+  object-fit: contain;
+}
+
 .navbar__navlinks {
   display: flex;
-  gap: 5rem;
+  gap: 2rem;
 }
 
 .navbar__navlinks--item {
@@ -12,4 +22,29 @@
   color: var(--mantine-color-gray-9);
   border-bottom: 2px solid black;
   transform: translateY(-100px);
+}
+
+.navbar__drawer .navbar__navlinks {
+  flex-direction: column;
+  margin-bottom: 3rem;
+}
+
+.navbar__burger {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .navbar {
+    padding: 2rem 0;
+  }
+  .navbar__logo {
+    height: 70px;
+  }
+  .navbar__burger {
+    display: block;
+  }
+  .navbar__navlinks.lg,
+  .navbar__actions {
+    display: none;
+  }
 }
