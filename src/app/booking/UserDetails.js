@@ -108,7 +108,7 @@ function UserDetails({
       </div>
       <div className="user-details__payment_methods">
         <h3>Payment</h3>
-        <Flex justify="space-between" gap={8}>
+        <Flex justify="space-between" wrap="wrap" gap={8}>
           {PAYMENT_METHODS_DATA.map((payment) => (
             <PaymentMethod
               key={payment?.name}

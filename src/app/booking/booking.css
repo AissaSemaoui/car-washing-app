@@ -15,7 +15,17 @@
 
 .stepper__card {
   margin: 1.5rem auto;
-  padding: 1rem 1.5rem;
+  padding: 1.5rem 2rem;
+  max-width: 1320px;
+  width: 90%;
+  border-radius: 1.5rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .stepper__card {
+    border-radius: 0.75rem;
+    padding: 1rem 1.5rem;
+  }
 }
 
 /*? ----------------------------- Vehicle Choice ----------------------------- */
@@ -252,7 +262,7 @@
 }
 
 .user-details__input {
-  width: 49%;
+  width: calc(50% - 0.5rem);
 }
 
 .user-details__payment_methods {
@@ -286,6 +296,11 @@
   object-fit: contain;
 }
 
+@media only screen and (max-width: 768px) {
+  .user-details__input {
+    width: 100%;
+  }
+}
 /*? ---------------------------- Completed Screen ---------------------------- */
 
 .completed__screen {

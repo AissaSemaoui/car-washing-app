@@ -46,7 +46,7 @@ function Booking() {
     setActive((current) => (current > 0 ? current - 1 : current));
 
   return (
-    <Card className="stepper__card container" shadow="md" radius="xl">
+    <Card className="stepper__card" shadow="md" radius="xl">
       <Card.Section>
         <Stepper
           active={active}
@@ -71,6 +71,8 @@ function Booking() {
           </Stepper.Step>
           <Stepper.Step
             label="Packages"
+            allowStepClick={!!formData?.selectedVehicle}
+            allowStepSelect={!!formData?.selectedVehicle}
             completedIcon={
               <img src="./images/step 2.png" className="stepper__icon" />
             }
@@ -84,6 +86,8 @@ function Booking() {
           </Stepper.Step>
           <Stepper.Step
             label="Extra services"
+            allowStepClick={!!formData?.selectedPackage}
+            allowStepSelect={!!formData?.selectedPackage}
             completedIcon={
               <img src="./images/step 3.png" className="stepper__icon" />
             }
@@ -97,6 +101,8 @@ function Booking() {
           </Stepper.Step>
           <Stepper.Step
             label="Time & Date"
+            allowStepClick={formData?.selectedPackage}
+            allowStepSelect={formData?.selectedPackage}
             completedIcon={
               <img src="./images/step 4.png" className="stepper__icon" />
             }
