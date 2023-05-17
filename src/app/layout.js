@@ -2,7 +2,7 @@ import "./main.css";
 import ProviderWrapper from "./ProviderWrapper";
 import { Open_Sans } from "next/font/google";
 import Hero from "./components/Hero";
-import Navbar from "./components/navbar/Navbar";
+import Navbar from "./Navbar";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 

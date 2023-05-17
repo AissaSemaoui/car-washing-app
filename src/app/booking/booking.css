@@ -331,38 +331,53 @@
   display: flex;
   width: 100%;
   height: 100%;
-  background-color: white;
   overflow-x: auto;
 }
 
 .timedate__btn {
+  font-size: 18px;
+  font-weight: 400;
+}
+.timedate__btn--current {
+  background-color: var(--mantine-color-blue-5);
+  color: var(--mantine-color-white);
+}
+.timedate__btn--current:hover {
+  background-color: var(--mantine-color-blue-6);
+}
+
+.timedate__btn--occupied {
+  background-color: var(--mantine-color-gray-3);
 }
 
 .timedate__container {
-  background-color: #fff;
   height: 100%;
   flex-grow: 1;
-  border: 1px solid #e1e1e1;
+  border: 1px solid var(--mantine-color-gray-3);
 }
 
 .timedate__head {
   height: 119px;
   text-align: center;
-  background-color: #f9f9f9;
+  background-color: var(--mantine-color-gray-1);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 0% 0.5rem;
+  width: 100%;
+  min-width: 100px;
 }
 
 .timedate__head p {
+  color: var(--mantine-color-gray-8);
   font-size: 36px;
   font-weight: 600;
 }
 
 .timedate__head span {
   font-size: 18px;
-  color: #767676;
+  color: var(--mantine-color-gray-6);
 }
 
 .timedate__times {

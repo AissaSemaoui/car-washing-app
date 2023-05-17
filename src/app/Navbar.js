@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-import "./navbar.css";
-import Image from "next/image";
+import "./components/navbar/navbar.css";
 import Link from "next/link";
 import {
   Anchor,
@@ -12,7 +11,6 @@ import {
   Flex,
   NativeSelect,
 } from "@mantine/core";
-import { useRouter } from "next/router";
 import { useDisclosure } from "@mantine/hooks";
 
 const MENU_ITEMS = [

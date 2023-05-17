@@ -21,8 +21,21 @@ function ProviderWrapper({ children }) {
             xl: "1.5rem",
           },
           colorScheme: "light",
-        }}
-      >
+          colors: {
+            blue: [
+              "#E1F3FF",
+              "#ADDFFF",
+              "#7FCDFF",
+              "#56BDFF",
+              "#3BADFF",
+              "#2A9DF4",
+              "#0092FF",
+              "#0083F4",
+              "#0075D9",
+              "#0068C1",
+            ],
+          },
+        }}>
         {children}
       </MantineProvider>
     </>

@@ -1,6 +1,6 @@
 "use client";
-import { Button, Card, Flex, Stepper } from "@mantine/core";
-import React, { useState } from "react";
+import { Button, Card, Flex, Stepper, Text } from "@mantine/core";
+import React, { useEffect, useState } from "react";
 import "./booking.css";
 import VehicleChoice from "./VehicleChoice";
 import Packages from "./Packages";
@@ -11,6 +11,8 @@ import TimeDate from "./TimeDate";
 import { useForm } from "@mantine/form";
 
 function Booking() {
+  const [error, setError] = useState("");
+
   const [formData, setFormData] = useState({
     selectedVehicle: "",
     selectedPackage: "",
@@ -25,6 +27,8 @@ function Booking() {
       street: "",
       house: "",
     },
+    scheduledDate: { date: null, hour: "" },
+    occupiedDates: ["05-16-2023 15:15", "05-18-2023 12:15"], // write occupied dates as array of strings match exact format ex: 05-16-2023 15:15
     selectedPaymentMethod: "",
   });
 
@@ -32,18 +36,49 @@ function Booking() {
     initialValues: formData?.userDetails,
   });
 
-  const [active, setActive] = useState(1);
+  const [active, setActive] = useState(0);
   const nextStep = () => {
-    if (active !== 4)
+    const goNext = () => {
       setActive((current) => (current < 5 ? current + 1 : current));
-    else
-      userDetailsForm.onSubmit((values) => {
-        setFormData((prev) => ({ ...prev, userDetails: values }));
-        setActive((current) => (current < 5 ? current + 1 : current));
-      })();
+      console.log(formData);
+    };
+    switch (active) {
+      case 0:
+        !!formData?.selectedVehicle
+          ? goNext()
+          : setError("Please select a vehicle");
+        break;
+      case 1:
+        !!formData?.selectedPackage
+          ? goNext()
+          : setError("Please select a package");
+        break;
+      case 2:
+        goNext();
+        break;
+      case 3:
+        !!formData?.scheduledDate.hour
+          ? goNext()
+          : setError("Please schedule a date");
+        break;
+      case 4:
+        if (!formData.selectedPaymentMethod)
+          setError("Please select a payment method");
+        formData.selectedPaymentMethod &&
+          userDetailsForm.onSubmit((values) => {
+            setFormData((prev) => ({ ...prev, userDetails: values }));
+            goNext();
+          })();
+        break;
+        Default: return;
+    }
   };
   const prevStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
+
+  useEffect(() => {
+    if (error) setError("");
+  }, [formData]);
 
   return (
     <Card className="stepper__card" shadow="md" radius="xl">
@@ -101,18 +136,24 @@ function Booking() {
           </Stepper.Step>
           <Stepper.Step
             label="Time & Date"
-            allowStepClick={formData?.selectedPackage}
-            allowStepSelect={formData?.selectedPackage}
+            allowStepClick={!!formData?.selectedPackage}
+            allowStepSelect={!!formData?.selectedPackage}
             completedIcon={
               <img src="./images/step 4.png" className="stepper__icon" />
             }
             icon={
               <img src="./images/dark step 4.png" className="stepper__icon" />
             }>
-            <TimeDate />
+            <TimeDate
+              scheduledDate={formData?.scheduledDate}
+              occupiedDates={formData?.occupiedDates}
+              setFormData={setFormData}
+            />
           </Stepper.Step>
           <Stepper.Step
             label="User details"
+            allowStepClick={!!formData?.scheduledDate?.hour}
+            allowStepSelect={!!formData?.scheduledDate?.hour}
             completedIcon={
               <img src="./images/step 5.png" className="stepper__icon" />
             }
@@ -139,6 +180,9 @@ function Booking() {
         </Stepper>
       </Card.Section>
       <Card.Section withBorder inheritPadding py="md">
+        <Text mb="sm" color="red">
+          {error}
+        </Text>
         <Flex justify="space-between">
           <Button variant="outline" onClick={prevStep} size="lg">
             Prev
