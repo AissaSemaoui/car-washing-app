@@ -1,4 +1,4 @@
-@import "../theme/typography.css";
+@import "./typography.css";
 
 * {
   margin: 0%;

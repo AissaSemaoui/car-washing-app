@@ -78,7 +78,7 @@ function Booking() {
 
   useEffect(() => {
     if (error) setError("");
-  }, [formData]);
+  }, [formData, active]);
 
   return (
     <Card className="stepper__card" shadow="md" radius="xl">
@@ -180,9 +180,7 @@ function Booking() {
         </Stepper>
       </Card.Section>
       <Card.Section withBorder inheritPadding py="md">
-        <Text mb="sm" color="red">
-          {error}
-        </Text>
+        <p className="error__message">{error}</p>
         <Flex justify="space-between">
           <Button variant="outline" onClick={prevStep} size="lg">
             Prev

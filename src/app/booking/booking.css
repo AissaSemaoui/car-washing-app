@@ -1,3 +1,8 @@
+.error__message {
+  color: var(--mantine-color-red-6);
+  margin-bottom: 0.5rem;
+}
+
 .stepper__control--wrapper {
   padding: var(--mantine-spacing-md);
   border-bottom: 1px solid var(--mantine-color-gray-3);
