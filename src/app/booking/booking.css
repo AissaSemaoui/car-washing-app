@@ -374,6 +374,13 @@
   min-width: 100px;
 }
 
+.timedate__head--sunday p {
+  color: var(--mantine-color-red-6) !important;
+}
+.timedate__head--today p {
+  color: var(--mantine-color-blue-8) !important;
+}
+
 .timedate__head p {
   color: var(--mantine-color-gray-8);
   font-size: 36px;

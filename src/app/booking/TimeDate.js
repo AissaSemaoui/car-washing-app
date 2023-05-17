@@ -51,13 +51,15 @@ const TimeDate = ({ scheduledDate, occupiedDates, setFormData }) => {
 
         return (
           <div className="timedate__container" key={label}>
-            <div className="timedate__head">
-              <p
-                style={{
-                  color: label === "Sunday" ? "red" : index === 0 ? "blue" : "",
-                }}>
-                {day}
-              </p>
+            <div
+              className={`timedate__head ${
+                label === "Sunday"
+                  ? "timedate__head--sunday "
+                  : index === 0
+                  ? "timedate__head--today"
+                  : ""
+              }`}>
+              <p>{day}</p>
               <span>{label}</span>
             </div>
             <div className="timedate__times">
