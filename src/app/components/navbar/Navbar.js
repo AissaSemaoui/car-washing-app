@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import "./components/navbar/navbar.css";
+import "./navbar.css";
 import Link from "next/link";
 import {
   Anchor,

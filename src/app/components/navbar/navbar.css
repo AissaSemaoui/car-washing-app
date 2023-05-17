@@ -20,7 +20,7 @@
 
 .navbar__navlinks--item:hover {
   color: var(--mantine-color-gray-9);
-  border-bottom: 2px solid black;
+  border-bottom: 3px solid black;
   transform: translateY(-100px);
 }
 
