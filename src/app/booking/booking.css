@@ -138,6 +138,7 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 28px;
+  color: var(--mantine-color-gray-8);
 }
 .package__card--duration span {
   display: block;

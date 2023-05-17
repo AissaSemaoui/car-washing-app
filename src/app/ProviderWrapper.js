@@ -20,6 +20,7 @@ function ProviderWrapper({ children }) {
           radius: {
             xl: "1.5rem",
           },
+          primaryShade: 5,
           colorScheme: "light",
           colors: {
             blue: [
@@ -33,6 +34,18 @@ function ProviderWrapper({ children }) {
               "#0083F4",
               "#0075D9",
               "#0068C1",
+            ],
+            gray: [
+              "#F8F9FA",
+              "#F1F3F5",
+              "#E9ECEF",
+              "#E1E1E1",
+              "#CED4DA",
+              "#ADB5BD",
+              "#767676",
+              "#5E6769",
+              "#424242",
+              "#212529",
             ],
           },
         }}>
