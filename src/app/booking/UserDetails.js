@@ -66,7 +66,7 @@ function UserDetails({
           {...userDetailsForm.getInputProps("phoneNumber")}
         />
         <TextInput
-          label="Area"
+          label="area"
           placeholder="text here..."
           size="md"
           variant="filled"

@@ -53,6 +53,7 @@
 .vehicle-choice__card img {
   height: 140px;
   max-height: 90%;
+  max-width: 100%;
   object-fit: contain;
 }
 
@@ -216,7 +217,6 @@
 .extra-services__card--content h2 {
   font-size: 48px;
   line-height: 1;
-  margin-bottom: 1rem;
   color: var(--mantine-color-blue-5);
   font-weight: 500;
 }

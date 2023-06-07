@@ -9,76 +9,78 @@ import UserDetails from "./UserDetails";
 import Complete from "./Complete";
 import TimeDate from "./TimeDate";
 import { useForm } from "@mantine/form";
+import { useScrollIntoView } from "@mantine/hooks";
+import { validateStep } from "@/utils/stepsValidation";
+import { userDetailsValidation } from "@/utils/userDetailsValidation";
+
+const DEFAULT_FORM_DATA = {
+  selectedVehicle: {
+    vehicletype: "",
+  },
+  selectedPackageId: "",
+  extraservicesId: "",
+  userDetails: {
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    area: "",
+    block: "",
+    avenue: "",
+    street: "",
+    house: "",
+  },
+  scheduledDate: { date: null, hour: "", fullDate: "" },
+  occupiedDates: ["05-16-2023 15:15", "05-18-2023 12:15"], // write occupied dates as array of strings match exact format ex: 05-16-2023 15:15
+  selectedPaymentMethod: "",
+};
 
 function Booking() {
   const [error, setError] = useState("");
+  const [invoiceUrl, setInvoiceUrl] = useState("");
 
-  const [formData, setFormData] = useState({
-    selectedVehicle: "",
-    selectedPackage: "",
-    extraServices: [],
-    userDetails: {
-      firstName: "",
-      lastName: "",
-      phoneNumber: "",
-      area: "",
-      block: "",
-      avenue: "",
-      street: "",
-      house: "",
-    },
-    scheduledDate: { date: null, hour: "" },
-    occupiedDates: ["05-16-2023 15:15", "05-18-2023 12:15"], // write occupied dates as array of strings match exact format ex: 05-16-2023 15:15
-    selectedPaymentMethod: "",
-  });
+  const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
+
+  const { scrollIntoView, targetRef } = useScrollIntoView({ offset: 60 });
 
   const userDetailsForm = useForm({
     initialValues: formData?.userDetails,
+    validate: userDetailsValidation,
   });
 
   const [active, setActive] = useState(0);
-  const nextStep = () => {
+
+  const nextStep = async () => {
     const goNext = () => {
       setActive((current) => (current < 5 ? current + 1 : current));
-      console.log(formData);
+      scrollIntoView({ alignment: "start" });
     };
-    switch (active) {
-      case 0:
-        !!formData?.selectedVehicle
-          ? goNext()
-          : setError("Please select a vehicle");
-        break;
-      case 1:
-        !!formData?.selectedPackage
-          ? goNext()
-          : setError("Please select a package");
-        break;
-      case 2:
-        goNext();
-        break;
-      case 3:
-        !!formData?.scheduledDate.hour
-          ? goNext()
-          : setError("Please schedule a date");
-        break;
-      case 4:
-        if (!formData.selectedPaymentMethod)
-          setError("Please select a payment method");
-        formData.selectedPaymentMethod &&
-          userDetailsForm.onSubmit((values) => {
-            setFormData((prev) => ({ ...prev, userDetails: values }));
-            goNext();
-          })();
-        break;
-        Default: return;
+
+    const isValidStep = await validateStep(
+      active,
+      formData,
+      setError,
+      userDetailsForm,
+      setFormData,
+      setInvoiceUrl
+    );
+
+
+    if (isValidStep) {
+      goNext();
     }
   };
-  const prevStep = () =>
+
+  const prevStep = () => {
     setActive((current) => (current > 0 ? current - 1 : current));
+  };
 
   useEffect(() => {
     if (error) setError("");
   }, [formData, active]);
+
+  useEffect(() => {
+    targetRef.current = document.querySelector(".stepper__content--wrapper");
+  }, []);
 
   return (
     <Card className="stepper__card" shadow="md" radius="xl">
@@ -115,14 +117,15 @@ function Booking() {
               <img src="./images/dark step 2.png" className="stepper__icon" />
             }>
             <Packages
-              selectedPackage={formData?.selectedPackage}
+              selectedPackageId={formData?.selectedPackageId}
               setFormData={setFormData}
+              selectedVehicle={formData?.selectedVehicle}
             />
           </Stepper.Step>
           <Stepper.Step
             label="Extra services"
-            allowStepClick={!!formData?.selectedPackage}
-            allowStepSelect={!!formData?.selectedPackage}
+            allowStepClick={!!formData?.selectedPackageId}
+            allowStepSelect={!!formData?.selectedPackageId}
             completedIcon={
               <img src="./images/step 3.png" className="stepper__icon" />
             }
@@ -130,14 +133,14 @@ function Booking() {
               <img src="./images/dark step 3.png" className="stepper__icon" />
             }>
             <ExtraServices
-              extraServices={formData?.extraServices}
+              extraservicesId={formData?.extraservicesId}
               setFormData={setFormData}
             />
           </Stepper.Step>
           <Stepper.Step
             label="Time & Date"
-            allowStepClick={!!formData?.selectedPackage}
-            allowStepSelect={!!formData?.selectedPackage}
+            allowStepClick={!!formData?.selectedPackageId}
+            allowStepSelect={!!formData?.selectedPackageId}
             completedIcon={
               <img src="./images/step 4.png" className="stepper__icon" />
             }
@@ -175,7 +178,10 @@ function Booking() {
             icon={
               <img src="./images/dark step 6.png" className="stepper__icon" />
             }>
-            <Complete />
+            <Complete
+              invoiceUrl={invoiceUrl}
+              selectedPaymentMethod={formData.selectedPaymentMethod}
+            />
           </Stepper.Completed>
         </Stepper>
       </Card.Section>

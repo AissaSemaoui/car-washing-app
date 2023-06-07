@@ -24,6 +24,7 @@ const TimeDate = ({ scheduledDate, occupiedDates, setFormData }) => {
     const scheduledDate = {
       date: date.format("L"),
       hour,
+      fullDate: `${date.format("L")} ${hour}`,
     };
 
     setFormData((prev) => ({ ...prev, scheduledDate }));
@@ -38,7 +39,6 @@ const TimeDate = ({ scheduledDate, occupiedDates, setFormData }) => {
         hour: date.format("HH") + ":00",
       };
     });
-    console.log(destructuredDates);
     return destructuredDates;
   })();
 

@@ -1,6 +1,8 @@
+import React from "react";
+
 import { Flex, Grid } from "@mantine/core";
 import { Clock, EmptyWallet } from "iconsax-react";
-import React, { useState } from "react";
+import withDataFetching from "@/utils/withDataFetching";
 
 const EXTRA_SERVICES_DATA = [
   {
@@ -15,56 +17,35 @@ const EXTRA_SERVICES_DATA = [
   },
 ];
 
-const ServiceCard = ({ title, description, image, features, className }) => (
-  <Flex className={`extra-services__card ${className}`} gap={24}>
-    <div>
-      <img src={image} alt={title} />
-    </div>
+const ServiceCard = ({ extraservices, className }) => (
+  <Flex
+    className={`extra-services__card ${className}`}
+    align="center"
+    justify="center"
+    gap={24}>
     <div className="extra-services__card--content">
-      <h2>{title}</h2>
-      <p>{description}</p>
-      <Flex className="extra-services__card--features" align="center">
-        {features.map((feature, index) => (
-          <div key={index} className="extra-services__features--item">
-            {feature?.icon} {feature?.feature}
-          </div>
-        ))}
-      </Flex>
+      <h2>{extraservices}</h2>
     </div>
   </Flex>
 );
 
-function ExtraServices({ extraServices, setFormData }) {
-  const isServiceExist = (serviceTitle) =>
-    !!extraServices?.find((service) => service === serviceTitle);
-
-  const handleSelect = (serviceTitle) => {
-    let alreadySelected = isServiceExist(serviceTitle);
-
-    if (!alreadySelected)
-      setFormData((prev) => ({
-        ...prev,
-        extraServices: [...(prev.extraServices || []), serviceTitle],
-      }));
-    else
-      setFormData((prev) => ({
-        ...prev,
-        extraServices: prev.filter((service) => service !== serviceTitle),
-      }));
+function ExtraServices({ data, extraservicesId, setFormData }) {
+  const handleSelect = (extraServiceId) => {
+    setFormData((prev) => ({ ...prev, extraservicesId: extraServiceId }));
   };
+
 
   return (
     <Grid justify="center">
-      {EXTRA_SERVICES_DATA.map((service) => (
+      {data?.extraservices?.map((extraService) => (
         <Grid.Col
           span={12}
-          sm={8}
-          md={6}
-          key={service?.title}
-          onClick={() => handleSelect(service?.title)}>
+          sm={6}
+          key={extraService._id}
+          onClick={() => handleSelect(extraService?._id)}>
           <ServiceCard
-            {...service}
-            className={isServiceExist(service?.title) && "selected"}
+            {...extraService}
+            className={extraservicesId === extraService._id && "selected"}
           />
         </Grid.Col>
       ))}
@@ -72,4 +53,6 @@ function ExtraServices({ extraServices, setFormData }) {
   );
 }
 
-export default ExtraServices;
+const api_url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/extra-services/allextraservices`;
+
+export default withDataFetching(api_url)(ExtraServices);

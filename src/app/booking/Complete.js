@@ -1,7 +1,7 @@
 import { Button } from "@mantine/core";
 import React from "react";
 
-function Complete() {
+function Complete({ invoiceUrl, selectedPaymentMethod }) {
   return (
     <div className="completed__screen">
       <img src="./images/success.png" alt="success" />
@@ -10,9 +10,11 @@ function Complete() {
         Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
         sint.
       </p>
-      <Button size="lg" variant="outline">
-        View order confirmation
-      </Button>
+      {selectedPaymentMethod !== "Cash" && (
+        <Button component="a" href={invoiceUrl} size="lg" variant="outline">
+          View order confirmation
+        </Button>
+      )}
     </div>
   );
 }
