@@ -6,7 +6,7 @@ export const userDetailsValidation = {
   phoneNumber: (value) =>
     /^[0-9]{8}$/.test(value)
       ? null
-      : "Please enter a valid 10-digit phone number",
+      : "Please enter a valid 8-digit phone number",
   area: (value) => (value.trim() === "" ? "Please enter your area" : null),
   block: (value) => (value.trim() === "" ? "Please enter your block" : null),
   avenue: (value) => (value.trim() === "" ? "Please enter your avenue" : null),
