@@ -37,7 +37,7 @@ const DEFAULT_FORM_DATA = {
 function Booking() {
   const [error, setError] = useState("");
   const [invoiceUrl, setInvoiceUrl] = useState("");
-
+  // const [isLoading, setLoading] = useState(false);
   const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
 
   const { scrollIntoView, targetRef } = useScrollIntoView({ offset: 60 });
@@ -63,7 +63,6 @@ function Booking() {
       setFormData,
       setInvoiceUrl
     );
-
 
     if (isValidStep) {
       goNext();

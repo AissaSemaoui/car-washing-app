@@ -1,5 +1,5 @@
 import useDataFetching from "@/hooks/useDataFetching";
-import { Button } from "@mantine/core";
+import { Button, Loader } from "@mantine/core";
 
 // Higher-Order Component (HOC)
 const withDataFetching = (url) => (WrappedComponent) => {
@@ -7,7 +7,11 @@ const withDataFetching = (url) => (WrappedComponent) => {
     const { data, loading, error, handleRetry } = useDataFetching(url);
 
     if (loading) {
-      return <p>Loading...</p>;
+      return (
+        <div className="loading-screen">
+          <Loader />
+        </div>
+      );
     }
 
     if (error) {
