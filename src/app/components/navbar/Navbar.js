@@ -66,7 +66,7 @@ function Navbar() {
         className="navbar__drawer">
         <nav className="navbar__navlinks">
           {MENU_ITEMS.map(({ name, link }) => (
-            <Link key={link} href={link}>
+            <Link key={link} href={link} onClick={close}>
               <Anchor
                 className="navbar__navlinks--item"
                 color="gray"
