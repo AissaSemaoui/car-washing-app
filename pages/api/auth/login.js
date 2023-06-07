@@ -2,10 +2,17 @@ import jwt from "jsonwebtoken";
 import { asyncError, errorHandler } from "../../../middlewares/error";
 import { connectDB } from "../../../utils/features";
 import Admin from "../../../models/Admin";
+import NextCors from "nextjs-cors";
 
 // Mock admin data (replace with your database or admin management logic)
 
 const handler = asyncError(async (req, res) => {
+  await NextCors(req, res, {
+    // Options
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "*",
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  });
   if (req.method === "POST") {
     await connectDB();
     const { email, password } = req.body;

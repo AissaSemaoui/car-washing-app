@@ -1,3 +1,4 @@
+import NextCors from "nextjs-cors";
 import { asyncError } from "../../../middlewares/error";
 import { Agent } from "../../../models/Agent";
 import { Booking } from "../../../models/Booking";
@@ -5,6 +6,12 @@ import { Staff } from "../../../models/Staff";
 import { connectDB } from "../../../utils/features";
 
 const handler = asyncError(async (req, res) => {
+  await NextCors(req, res, {
+    // Options
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "*",
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  });
   if (req.method === "GET") {
     try {
       await connectDB(); // Connect to the database

@@ -1,7 +1,14 @@
+import NextCors from "nextjs-cors";
 import { errorHandler, asyncError } from "../../../middlewares/error.js";
 import { Washpackage } from "../../../models/WashPackages.js";
 import { connectDB } from "../../../utils/features.js";
 const handler = asyncError(async (req, res) => {
+  await NextCors(req, res, {
+    // Options
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "*",
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  });
   await connectDB();
   const packageId = req.query.id;
   const washPackage = await Washpackage.findById(packageId);
