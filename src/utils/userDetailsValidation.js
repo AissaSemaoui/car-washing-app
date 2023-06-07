@@ -4,7 +4,7 @@ export const userDetailsValidation = {
   lastName: (value) =>
     value.trim() === "" ? "Please enter your last name" : null,
   phoneNumber: (value) =>
-    /^[0-9]{10}$/.test(value)
+    /^[0-9]{8}$/.test(value)
       ? null
       : "Please enter a valid 10-digit phone number",
   area: (value) => (value.trim() === "" ? "Please enter your area" : null),
