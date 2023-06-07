@@ -37,7 +37,7 @@ const DEFAULT_FORM_DATA = {
 function Booking() {
   const [error, setError] = useState("");
   const [invoiceUrl, setInvoiceUrl] = useState("");
-  // const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
 
   const { scrollIntoView, targetRef } = useScrollIntoView({ offset: 60 });
@@ -55,6 +55,7 @@ function Booking() {
       scrollIntoView({ alignment: "start" });
     };
 
+    setLoading(true);
     const isValidStep = await validateStep(
       active,
       formData,
@@ -63,6 +64,7 @@ function Booking() {
       setFormData,
       setInvoiceUrl
     );
+    setLoading(false);
 
     if (isValidStep) {
       goNext();
@@ -99,7 +101,8 @@ function Booking() {
             }
             icon={
               <img src="./images/dark step 1.png" className="stepper__icon" />
-            }>
+            }
+            loading={active === 0 && isLoading}>
             <VehicleChoice
               selectedVehicle={formData?.selectedVehicle}
               setFormData={setFormData}
@@ -114,7 +117,8 @@ function Booking() {
             }
             icon={
               <img src="./images/dark step 2.png" className="stepper__icon" />
-            }>
+            }
+            loading={active === 1 && isLoading}>
             <Packages
               selectedPackageId={formData?.selectedPackageId}
               setFormData={setFormData}
@@ -130,7 +134,8 @@ function Booking() {
             }
             icon={
               <img src="./images/dark step 3.png" className="stepper__icon" />
-            }>
+            }
+            loading={active === 2 && isLoading}>
             <ExtraServices
               extraservicesId={formData?.extraservicesId}
               setFormData={setFormData}
@@ -145,7 +150,8 @@ function Booking() {
             }
             icon={
               <img src="./images/dark step 4.png" className="stepper__icon" />
-            }>
+            }
+            loading={active === 3 && isLoading}>
             <TimeDate
               scheduledDate={formData?.scheduledDate}
               occupiedDates={formData?.occupiedDates}
@@ -161,7 +167,8 @@ function Booking() {
             }
             icon={
               <img src="./images/dark step 5.png" className="stepper__icon" />
-            }>
+            }
+            loading={active === 4 && isLoading}>
             <UserDetails
               userDetailsForm={userDetailsForm}
               userDetails={formData?.userDetails}

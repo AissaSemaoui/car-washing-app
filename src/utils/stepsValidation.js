@@ -56,13 +56,29 @@ export const validateStep = async (
             `${process.env.NEXT_PUBLIC_BASE_URL}/api/booking/bookings`,
             bookingData
           );
-          const transaction = await sendPostRequest(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/transaction/${response.newBooking._id}`,
-            bookingData
-          );
-          if (!response || !transaction) reject(false);
-          const parsedResponse = JSON.parse(transaction.response);
-          setInvoiceUrl(parsedResponse.Data.Do_TxnHdr[0].InvcURl);
+
+          if (!response.success) {
+            setError("Booking Failed!, Please try again");
+            reject(false);
+          }
+
+          if (
+            response.newBooking &&
+            formData.selectedPaymentMethod !== "Cash"
+          ) {
+            const transaction = await sendPostRequest(
+              `${process.env.NEXT_PUBLIC_BASE_URL}/api/transaction/${response?.newBooking?._id}`,
+              bookingData
+            );
+
+            if (transaction.success) {
+              const parsedResponse = JSON.parse(transaction.response);
+              setInvoiceUrl(parsedResponse.Data.Do_TxnHdr[0].InvcURl);
+            } else {
+              setError("Generating Invoice Failed!");
+            }
+          }
+
           setFormData((prev) => ({ ...prev, userDetails: values }));
           resolve(true);
         })()

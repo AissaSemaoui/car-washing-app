@@ -10,7 +10,7 @@ function Complete({ invoiceUrl, selectedPaymentMethod }) {
         Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
         sint.
       </p>
-      {selectedPaymentMethod !== "Cash" && (
+      {invoiceUrl && selectedPaymentMethod !== "Cash" && (
         <Button component="a" href={invoiceUrl} size="lg" variant="outline">
           View order confirmation
         </Button>
