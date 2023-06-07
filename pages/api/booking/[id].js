@@ -34,13 +34,13 @@ const handler = asyncError(async (req, res) => {
     const existingAgent = booking.AgentInfo.find((agentInfo) =>
       agentInfo.agentId.equals(agentId)
     );
-    if (existingAgent) return errorHandler(res, 400, "agent already exists");
+    // if (existingAgent) return errorHandler(res, 400, "agent already exists");
     const agentInformation = {
       agentId: agent._id,
       agentname: agent.agentname,
       agentphonenumber: agent.phonenumber,
     };
-    booking.AgentInfo.push(agentInformation);
+    booking.AgentInfo[0] = agentInformation;
     try {
       await booking.save();
     } catch (err) {
