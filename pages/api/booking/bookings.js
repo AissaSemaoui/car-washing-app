@@ -72,7 +72,7 @@ const handler = asyncError(async (req, res) => {
       sendWhatsAppMessage(to, reminderMessage);
     }, reminderTime - Date.now());
   }
-  res.json({
+  res.status(200).json({
     success: true,
     message: "Booking Created successfully",
     newBooking,
