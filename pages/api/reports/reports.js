@@ -47,13 +47,13 @@ const handler = asyncError(async (req, res) => {
       ]);
 
       const monthlyBookings = await Booking.countDocuments({
-        createdAt: { $gte: lastMonthlyDate, $lte: currentDate },
+        bookingDateTime: { $gte: lastMonthlyDate, $lte: currentDate },
       });
 
       const monthlyEarnings = await Booking.aggregate([
         {
           $match: {
-            createdAt: { $gte: lastMonthlyDate, $lte: currentDate },
+            bookingDateTime: { $gte: lastMonthlyDate, $lte: currentDate },
           },
         },
         {
@@ -73,13 +73,13 @@ const handler = asyncError(async (req, res) => {
       ]);
 
       const threeMonthsBookings = await Booking.countDocuments({
-        createdAt: { $gte: last3MonthsDate, $lte: currentDate },
+        bookingDateTime: { $gte: last3MonthsDate, $lte: currentDate },
       });
 
       const threeMonthsEarnings = await Booking.aggregate([
         {
           $match: {
-            createdAt: { $gte: last3MonthsDate, $lte: currentDate },
+            bookingDateTime: { $gte: last3MonthsDate, $lte: currentDate },
           },
         },
         {
@@ -99,13 +99,13 @@ const handler = asyncError(async (req, res) => {
       ]);
 
       const yearlyBookings = await Booking.countDocuments({
-        createdAt: { $gte: lastYearDate, $lte: currentDate },
+        bookingDateTime: { $gte: lastYearDate, $lte: currentDate },
       });
 
       const yearlyEarnings = await Booking.aggregate([
         {
           $match: {
-            createdAt: { $gte: lastYearDate, $lte: currentDate },
+            bookingDateTime: { $gte: lastYearDate, $lte: currentDate },
           },
         },
         {
