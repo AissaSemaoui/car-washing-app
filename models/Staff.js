@@ -13,6 +13,10 @@ const schema = new mongoose.Schema({
     ref: "Agent",
     default: null,
   },
+  createdAt: {
+    type: Date,
+    required: true,
+  },
 });
 mongoose.models = {};
 export const Staff = mongoose.model("Staff", schema);

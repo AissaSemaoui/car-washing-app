@@ -12,7 +12,9 @@ const handler = asyncError(async (req, res) => {
   if (req.method != "GET")
     return errorHandler(res, 400, "only get method is allowed");
   await connectDB();
-  const staff = await Staff.find({}).populate("agentSupervisor");
+  const staff = await Staff.find({}).populate("agentSupervisor").sort({
+    createdAt: "desc",
+  });
   res.status(200).json({
     success: true,
     message: "Getting all the staff",

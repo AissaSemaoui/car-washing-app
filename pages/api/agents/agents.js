@@ -18,6 +18,7 @@ const handler = asyncError(async (req, res) => {
   await Agent.create({
     agentname,
     phonenumber,
+    createdAt: new Date(),
   });
 
   res.status(200).json({

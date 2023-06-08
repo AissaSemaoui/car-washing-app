@@ -12,8 +12,12 @@ const adminSchema = new mongoose.Schema({
   },
   token: {
     type: String,
-    required : true, 
-    default : null
+    required: true,
+    default: null,
+  },
+  createdAt: {
+    type: Date,
+    required: true,
   },
 });
 

@@ -9,6 +9,10 @@ const schema = new mongoose.Schema({
     type: Number,
     required: [true, "please enter phone number"],
   },
+  createdAt: {
+    type: Date,
+    required: true,
+  },
   // assignedstaff: [
   //   {
   //     staffId: {

@@ -19,6 +19,7 @@ const handler = asyncError(async (req, res) => {
   await Staff.create({
     staffname,
     phonenumber,
+    createdAt: new Date(),
   });
   res.json({
     success: true,

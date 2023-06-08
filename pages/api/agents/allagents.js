@@ -22,9 +22,13 @@ const handler = asyncError(async (req, res) => {
 
   let agents;
   if (selectFields.length > 0) {
-    agents = await Agent.find({}, selectFields.join(" "));
+    agents = await Agent.find({}, selectFields.join(" ")).sort({
+      createdAt: "desc",
+    });
   } else {
-    agents = await Agent.find({});
+    agents = await Agent.find({}).sort({
+      createdAt: "desc",
+    });
   }
 
   res.status(200).json({
