@@ -2,7 +2,6 @@ import { asyncError, errorHandler } from "../../../middlewares/error.js";
 import NextCors from "nextjs-cors";
 import { Booking } from "../../../models/Booking.js";
 import { ExtraServices } from "../../../models/ExtraServices.js";
-import { VehicleType } from "../../../models/Vehicle.js";
 import { Washpackage } from "../../../models/WashPackages.js";
 import { connectDB } from "../../../utils/features.js";
 import { sendWhatsAppMessage } from "../../../sendWhatsAppMessage.js";
@@ -55,6 +54,7 @@ const handler = asyncError(async (req, res) => {
     street,
     house,
     bookingDateTime: bookingDateTimeInIndia,
+    createdAt: new Date(),
   });
 
   newBooking.bookingthings.push(bookingInfo);

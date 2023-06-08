@@ -60,6 +60,10 @@ const schema = new mongoose.Schema({
   bookingDateTime: {
     type: Date,
   },
+  createdAt: {
+    type: Date,
+    required: true,
+  },
 
   AgentInfo: [
     {

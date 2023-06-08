@@ -33,61 +33,93 @@ const handler = asyncError(async (req, res) => {
         {
           $group: {
             _id: null,
-            earnings: { $sum: "$bookingthings.packageprice" },
+            earnings: {
+              $sum: {
+                $cond: [
+                  { $ifNull: ["$bookingthings.packageprice", 0] },
+                  "$bookingthings.packageprice",
+                  0,
+                ],
+              },
+            },
           },
         },
       ]);
 
       const monthlyBookings = await Booking.countDocuments({
-        bookingDateTime: { $gte: lastMonthlyDate, $lte: currentDate },
+        createdAt: { $gte: lastMonthlyDate, $lte: currentDate },
       });
 
       const monthlyEarnings = await Booking.aggregate([
         {
           $match: {
-            bookingDateTime: { $gte: lastMonthlyDate, $lte: currentDate },
+            createdAt: { $gte: lastMonthlyDate, $lte: currentDate },
           },
         },
         {
           $group: {
             _id: null,
-            earnings: { $sum: "$bookingthings.packageprice" },
+            earnings: {
+              $sum: {
+                $cond: [
+                  { $ifNull: ["$bookingthings.packageprice", 0] },
+                  "$bookingthings.packageprice",
+                  0,
+                ],
+              },
+            },
           },
         },
       ]);
 
       const threeMonthsBookings = await Booking.countDocuments({
-        bookingDateTime: { $gte: last3MonthsDate, $lte: currentDate },
+        createdAt: { $gte: last3MonthsDate, $lte: currentDate },
       });
 
       const threeMonthsEarnings = await Booking.aggregate([
         {
           $match: {
-            bookingDateTime: { $gte: last3MonthsDate, $lte: currentDate },
+            createdAt: { $gte: last3MonthsDate, $lte: currentDate },
           },
         },
         {
           $group: {
             _id: null,
-            earnings: { $sum: "$bookingthings.packageprice" },
+            earnings: {
+              $sum: {
+                $cond: [
+                  { $ifNull: ["$bookingthings.packageprice", 0] },
+                  "$bookingthings.packageprice",
+                  0,
+                ],
+              },
+            },
           },
         },
       ]);
 
       const yearlyBookings = await Booking.countDocuments({
-        bookingDateTime: { $gte: lastYearDate, $lte: currentDate },
+        createdAt: { $gte: lastYearDate, $lte: currentDate },
       });
 
       const yearlyEarnings = await Booking.aggregate([
         {
           $match: {
-            bookingDateTime: { $gte: lastYearDate, $lte: currentDate },
+            createdAt: { $gte: lastYearDate, $lte: currentDate },
           },
         },
         {
           $group: {
             _id: null,
-            earnings: { $sum: "$bookingthings.packageprice" },
+            earnings: {
+              $sum: {
+                $cond: [
+                  { $ifNull: ["$bookingthings.packageprice", 0] },
+                  "$bookingthings.packageprice",
+                  0,
+                ],
+              },
+            },
           },
         },
       ]);
