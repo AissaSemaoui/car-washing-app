@@ -10,6 +10,11 @@ const adminSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  token: {
+    type: String,
+    required : true, 
+    default : null
+  },
 });
 
 mongoose.models = {};

@@ -4,8 +4,6 @@ import { connectDB } from "../../../utils/features";
 import Admin from "../../../models/Admin";
 import NextCors from "nextjs-cors";
 
-// Mock admin data (replace with your database or admin management logic)
-
 const handler = asyncError(async (req, res) => {
   await NextCors(req, res, {
     // Options
@@ -30,10 +28,12 @@ const handler = asyncError(async (req, res) => {
       }
 
       // Secret key for signing JWT
-      const secretKey =
-        "7R5K9x6T9v0Y3t2S4o1N8l2H3w5S6r7A8n9d0o1m2K4e5y6E7x8a9m0p1l2e3";
+      const secretKey = process.env.secretJwtKey;
       // Generate a JWT token
       const token = jwt.sign({ userId: admin._id }, secretKey);
+
+      admin.token = token;
+      await admin.save();
 
       res.json({ success: true, message: "Signed Successfully", token });
     } catch (err) {
