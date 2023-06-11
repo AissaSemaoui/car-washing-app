@@ -15,10 +15,6 @@ const adminSchema = new mongoose.Schema({
     required: true,
     default: null,
   },
-  createdAt: {
-    type: Date,
-    required: true,
-  },
 });
 
 mongoose.models = {};
