@@ -37,7 +37,6 @@ const handler = asyncError(async (req, res) => {
           },
         },
       ]);
-      z;
       const monthlyBookings = await Booking.countDocuments({
         createdAt: { $gte: lastMonthlyDate, $lte: currentDate },
       });
