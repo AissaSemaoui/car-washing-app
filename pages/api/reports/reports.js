@@ -122,9 +122,11 @@ const handler = asyncError(async (req, res) => {
         },
       });
     } catch (error) {
+      console.log(error);
       errorHandler(res, 500, "Internal server error");
     }
   } else {
+    console.log(error);
     errorHandler(res, 405, "Method Not Allowed");
   }
 });
