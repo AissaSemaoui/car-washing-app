@@ -10,11 +10,9 @@ import {
   Drawer,
   Flex,
   NativeSelect,
-  Select,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useTranslation } from "@/app/i18n/client";
-import i18next from "i18next";
 import { usePathname, useRouter } from "next/navigation";
 
 function Navbar({ lng }) {
@@ -24,6 +22,8 @@ function Navbar({ lng }) {
   const currentPath = path.replace(`/${lng}`, "");
 
   const { t } = useTranslation(lng, "common");
+
+  console.log(lng, currentPath);
 
   const MENU_ITEMS = [
     {
