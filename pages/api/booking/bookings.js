@@ -21,7 +21,9 @@ const handler = asyncError(async (req, res) => {
     const packageId = req.body.packageId;
     const extraservicesId = req.body.extraservicesId;
     const washpackage = await Washpackage.findById(packageId);
-    const extraservices = await ExtraServices.findById(extraservicesId);
+    const extraservices = extraservicesId
+      ? await ExtraServices.findById(extraservicesId)
+      : "";
     const bookingInfo = {
       vehicletype: vehicletype,
       packageId: washpackage._id,
