@@ -10,7 +10,7 @@ export const validateStep = async (
 ) => {
   switch (active) {
     case 0:
-      if (!formData?.selectedVehicle) {
+      if (!formData?.selectedVehicle?.vehicletype) {
         setError("selectVehicleErr");
         return false;
       }
@@ -24,7 +24,10 @@ export const validateStep = async (
       return true;
       break;
     case 3:
-      if (!formData?.scheduledDate.hour) {
+      if (
+        !formData?.scheduledDate?.hour ||
+        !formData?.scheduledDate?.fullDate
+      ) {
         setError("scheduleDateErr");
         return false;
       }
@@ -35,7 +38,7 @@ export const validateStep = async (
         setError("paymentMethodErr");
         return false;
       }
-      return new Promise((resolve, reject) =>
+      return await new Promise((resolve, reject) =>
         userDetailsForm.onSubmit(async (values) => {
           const bookingData = {
             vehicletype: formData.selectedVehicle?.vehicletype,
@@ -59,7 +62,7 @@ export const validateStep = async (
 
           if (!response.success) {
             setError("bookingFailedErr");
-            reject(false);
+            resolve(false);
           }
 
           if (
