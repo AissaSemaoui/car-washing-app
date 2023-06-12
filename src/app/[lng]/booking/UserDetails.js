@@ -8,11 +8,11 @@ import React from "react";
 const PAYMENT_METHODS_DATA = [
   {
     name: "Cash",
-    img: "./images/moneys.png",
+    img: "/images/moneys.png",
   },
   {
     name: "Knet",
-    img: "./images/Knet.png",
+    img: "/images/Knet.png",
   },
   {
     name: "Credit credit",

@@ -7,7 +7,7 @@ function Complete({ invoiceUrl, selectedPaymentMethod, lng }) {
 
   return (
     <div className="completed__screen">
-      <img src="./images/success.png" alt="success" />
+      <img src="/images/success.png" alt="success" />
       <h2>{t("successTitle")}</h2>
       <p>{t("successDescription")}</p>
       {invoiceUrl && selectedPaymentMethod !== "Cash" && (
