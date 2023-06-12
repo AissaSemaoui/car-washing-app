@@ -1,6 +1,7 @@
 "use client";
-import { Button, Card, Flex, Stepper, Text } from "@mantine/core";
+
 import React, { useEffect, useState } from "react";
+import { Button, Card, Flex, Stepper, Text } from "@mantine/core";
 import "./booking.css";
 import VehicleChoice from "./VehicleChoice";
 import Packages from "./Packages";
@@ -12,6 +13,7 @@ import { useForm } from "@mantine/form";
 import { useScrollIntoView } from "@mantine/hooks";
 import { validateStep } from "@/utils/stepsValidation";
 import { userDetailsValidation } from "@/utils/userDetailsValidation";
+import { useTranslation } from "@/app/i18n/client";
 
 const DEFAULT_FORM_DATA = {
   selectedVehicle: {
@@ -34,7 +36,9 @@ const DEFAULT_FORM_DATA = {
   selectedPaymentMethod: "",
 };
 
-function Booking() {
+function MainStepper({ lng }) {
+  const { t } = useTranslation(lng, "common");
+
   const [error, setError] = useState("");
   const [invoiceUrl, setInvoiceUrl] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -95,28 +99,29 @@ function Booking() {
             content: "stepper__content--wrapper",
           }}>
           <Stepper.Step
-            label="Vehicle choice"
+            label={t("vehicleChoice")}
             completedIcon={
-              <img src="./images/step 1.png" className="stepper__icon" />
+              <img src="/images/step 1.png" className="stepper__icon" />
             }
             icon={
-              <img src="./images/dark step 1.png" className="stepper__icon" />
+              <img src="/images/dark step 1.png" className="stepper__icon" />
             }
             loading={active === 0 && isLoading}>
             <VehicleChoice
               selectedVehicle={formData?.selectedVehicle}
               setFormData={setFormData}
+              lng={lng}
             />
           </Stepper.Step>
           <Stepper.Step
-            label="Packages"
+            label={t("packages")}
             allowStepClick={!!formData?.selectedVehicle}
             allowStepSelect={!!formData?.selectedVehicle}
             completedIcon={
-              <img src="./images/step 2.png" className="stepper__icon" />
+              <img src="/images/step 2.png" className="stepper__icon" />
             }
             icon={
-              <img src="./images/dark step 2.png" className="stepper__icon" />
+              <img src="/images/dark step 2.png" className="stepper__icon" />
             }
             loading={active === 1 && isLoading}>
             <Packages
@@ -126,14 +131,14 @@ function Booking() {
             />
           </Stepper.Step>
           <Stepper.Step
-            label="Extra services"
+            label={t("extraServices")}
             allowStepClick={!!formData?.selectedPackageId}
             allowStepSelect={!!formData?.selectedPackageId}
             completedIcon={
-              <img src="./images/step 3.png" className="stepper__icon" />
+              <img src="/images/step 3.png" className="stepper__icon" />
             }
             icon={
-              <img src="./images/dark step 3.png" className="stepper__icon" />
+              <img src="/images/dark step 3.png" className="stepper__icon" />
             }
             loading={active === 2 && isLoading}>
             <ExtraServices
@@ -142,14 +147,14 @@ function Booking() {
             />
           </Stepper.Step>
           <Stepper.Step
-            label="Time & Date"
+            label={t("time&date")}
             allowStepClick={!!formData?.selectedPackageId}
             allowStepSelect={!!formData?.selectedPackageId}
             completedIcon={
-              <img src="./images/step 4.png" className="stepper__icon" />
+              <img src="/images/step 4.png" className="stepper__icon" />
             }
             icon={
-              <img src="./images/dark step 4.png" className="stepper__icon" />
+              <img src="/images/dark step 4.png" className="stepper__icon" />
             }
             loading={active === 3 && isLoading}>
             <TimeDate
@@ -159,17 +164,18 @@ function Booking() {
             />
           </Stepper.Step>
           <Stepper.Step
-            label="User details"
+            label={t("userDetails")}
             allowStepClick={!!formData?.scheduledDate?.hour}
             allowStepSelect={!!formData?.scheduledDate?.hour}
             completedIcon={
-              <img src="./images/step 5.png" className="stepper__icon" />
+              <img src="/images/step 5.png" className="stepper__icon" />
             }
             icon={
-              <img src="./images/dark step 5.png" className="stepper__icon" />
+              <img src="/images/dark step 5.png" className="stepper__icon" />
             }
             loading={active === 4 && isLoading}>
             <UserDetails
+              lng={lng}
               userDetailsForm={userDetailsForm}
               userDetails={formData?.userDetails}
               selectedPaymentMethod={formData?.selectedPaymentMethod}
@@ -177,14 +183,15 @@ function Booking() {
             />
           </Stepper.Step>
           <Stepper.Completed
-            label="Complete"
+            label={t("complete")}
             completedIcon={
-              <img src="./images/step 6.png" className="stepper__icon" />
+              <img src="/images/step 6.png" className="stepper__icon" />
             }
             icon={
-              <img src="./images/dark step 6.png" className="stepper__icon" />
+              <img src="/images/dark step 6.png" className="stepper__icon" />
             }>
             <Complete
+              lng={lng}
               invoiceUrl={invoiceUrl}
               selectedPaymentMethod={formData.selectedPaymentMethod}
             />
@@ -195,10 +202,10 @@ function Booking() {
         <p className="error__message">{error}</p>
         <Flex justify="space-between">
           <Button variant="outline" onClick={prevStep} size="lg">
-            Prev
+            {t("prev")}
           </Button>
           <Button onClick={nextStep} size="lg">
-            Next
+            {t("next")}
           </Button>
         </Flex>
       </Card.Section>
@@ -206,4 +213,4 @@ function Booking() {
   );
 }
 
-export default Booking;
+export default MainStepper;

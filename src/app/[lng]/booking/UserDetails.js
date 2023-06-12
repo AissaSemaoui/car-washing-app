@@ -1,3 +1,4 @@
+import { useTranslation } from "@/app/i18n/client";
 import { Flex, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { Card } from "iconsax-react";
@@ -31,7 +32,10 @@ function UserDetails({
   userDetails,
   selectedPaymentMethod,
   setFormData,
+  lng,
 }) {
+  const { t } = useTranslation(lng, "common");
+
   const handleSelectPaymentMethod = (selectedPaymentMethod) =>
     setFormData((prev) => ({
       ...prev,
@@ -42,64 +46,64 @@ function UserDetails({
     <form className="user-details">
       <div className="user-details__inputs--wrapper">
         <TextInput
-          label="First name"
-          placeholder="text here..."
+          label={t("firstName")}
+          placeholder={t("placeholderInput")}
           size="md"
           variant="filled"
           className="user-details__input"
           {...userDetailsForm.getInputProps("firstName")}
         />
         <TextInput
-          label="Last name"
-          placeholder="text here..."
+          label={t("lastName")}
+          placeholder={t("placeholderInput")}
           size="md"
           variant="filled"
           className="user-details__input"
           {...userDetailsForm.getInputProps("lastName")}
         />
         <TextInput
-          label="Phone number"
-          placeholder="text here..."
+          label={t("phoneNumber")}
+          placeholder={t("placeholderInput")}
           size="md"
           variant="filled"
           className="user-details__input"
           {...userDetailsForm.getInputProps("phoneNumber")}
         />
         <TextInput
-          label="area"
-          placeholder="text here..."
+          label={t("area")}
+          placeholder={t("placeholderInput")}
           size="md"
           variant="filled"
           className="user-details__input"
           {...userDetailsForm.getInputProps("area")}
         />
         <TextInput
-          label="Block"
-          placeholder="text here..."
+          label={t("block")}
+          placeholder={t("placeholderInput")}
           size="md"
           variant="filled"
           className="user-details__input"
           {...userDetailsForm.getInputProps("block")}
         />
         <TextInput
-          label="Avenue"
-          placeholder="text here..."
+          label={t("avenue")}
+          placeholder={t("placeholderInput")}
           size="md"
           variant="filled"
           className="user-details__input"
           {...userDetailsForm.getInputProps("avenue")}
         />
         <TextInput
-          label="Street"
-          placeholder="text here..."
+          label={t("street")}
+          placeholder={t("placeholderInput")}
           size="md"
           variant="filled"
           className="user-details__input"
           {...userDetailsForm.getInputProps("street")}
         />
         <TextInput
-          label="House"
-          placeholder="text here..."
+          label={t("house")}
+          placeholder={t("placeholderInput")}
           size="md"
           variant="filled"
           className="user-details__input"
@@ -107,7 +111,7 @@ function UserDetails({
         />
       </div>
       <div className="user-details__payment_methods">
-        <h3>Payment</h3>
+        <h3>{t("payment")}</h3>
         <Flex justify="space-between" wrap="wrap" gap={8}>
           {PAYMENT_METHODS_DATA.map((payment) => (
             <PaymentMethod

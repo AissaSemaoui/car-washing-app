@@ -98,7 +98,7 @@ const PackageCard = ({
       <div className="package__salon--card">
         {/* <h4>Salon & jeep</h4>
         <p>{salon}&nbsp;Kd</p> */}
-        <h4>{packageprice[selectedVehicle?.vehicletype]} $</h4>
+        <h4>{packageprice[selectedVehicle?.vehicletype]} KWD</h4>
       </div>
     </Flex>
     <ul className="package__card--packagefeatures">

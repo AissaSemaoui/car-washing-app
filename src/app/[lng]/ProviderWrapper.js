@@ -1,9 +1,10 @@
 "use client";
 
 import { MantineProvider } from "@mantine/core";
+import { dir } from "i18next";
 import React from "react";
 
-function ProviderWrapper({ children }) {
+function ProviderWrapper({ children, lng }) {
   return (
     <>
       <MantineProvider
@@ -11,7 +12,7 @@ function ProviderWrapper({ children }) {
         // withNormalizeCSS
         withCSSVariables
         theme={{
-          /** Put your mantine theme override here */
+          dir: dir(lng),
           headings: {
             sizes: {
               h1: "4rem",

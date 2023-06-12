@@ -12,7 +12,7 @@ body {
       rgba(248, 252, 255, 0.8),
       rgba(248, 252, 255, 0.8)
     ),
-    url(../../public/images/bg.jpeg), #f8fcff;
+    url(../../../public/images/bg.jpeg), #f8fcff;
   background-size: fill;
   padding-bottom: 500px;
 }
