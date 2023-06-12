@@ -27,8 +27,8 @@ const handler = asyncError(async (req, res) => {
       packageId: washpackage._id,
       packagename: washpackage.packagename,
       packageprice: Number(washpackage.packageprice[vehicletype]) || 0,
-      extraservicesId: extraservices._id,
-      extraservicesname: extraservices.extraservices,
+      extraservicesId: extraservices?._id || "",
+      extraservicesname: extraservices?.extraservices || "",
     };
     const {
       firstname,

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const schema = new mongoose.Schema({
   firstname: {
     type: String,
@@ -53,7 +54,6 @@ const schema = new mongoose.Schema({
       },
       extraservicesname: {
         type: String,
-        required: true,
       },
     },
   ],
@@ -64,7 +64,6 @@ const schema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-
   AgentInfo: [
     {
       agentId: {
