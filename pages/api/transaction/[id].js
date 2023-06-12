@@ -24,14 +24,17 @@ const handler = asyncError(async (req, res) => {
     if (!booking) return errorHandler(res, 400, "Invalid booking ID");
 
     const packagePrice = booking.bookingthings[0].packageprice;
-    const username = booking.firstname;
-    const phonenumber = booking.phonenumber;
+
     if (!packagePrice)
       return errorHandler(
         res,
         400,
         "Booking does not contain package information"
       );
+
+    const bookingCreationTime = booking.createdAt;
+    const expirationTime = new Date(bookingCreationTime);
+    expirationTime.setHours(expirationTime.getHours() + 24);
 
     const options = {
       method: "POST",
@@ -45,16 +48,16 @@ const handler = asyncError(async (req, res) => {
         Do_TxnDtl: [
           {
             SubMerchUID: "mref2300013",
-            Txn_AMT: parseFloat(packagePrice),
+            Txn_AMT: booking.bookingthings[0].packageprice,
           },
         ],
         Do_TxnHdr: {
           CreatedBy: "mref2300013",
-          dispatch_date: "2020-07-28T12:48:12.000Z",
+          dispatch_date: booking.bookingDateTime,
           DOExpirtyTyp: "1",
-          Txn_Date: "2020-07-28T12:48:12.000Z",
+          Txn_Date: booking.createdAt,
           Merch_Txn_UID: "99364796",
-          DOExpirty: "2023-03-02T12:48:12.000Z",
+          DOExpirty: expirationTime.toISOString(),
         },
         Do_Appinfo: {
           AppLicens: "s",
@@ -68,10 +71,10 @@ const handler = asyncError(async (req, res) => {
         },
         Do_PyrDtl: {
           ISDNCD: "965",
-          Pyr_Remark: "نتاتناتاللل,",
-          Pyr_MPhone: phonenumber,
+          Pyr_Remark: "",
+          Pyr_MPhone: booking.phonenumber,
           Pyr_GovDocTyp: "CID",
-          Pyr_Name: username,
+          Pyr_Name: booking.firstname + " " + booking.lastname,
           PrfLang: "EN",
         },
         Do_MerchDtl: {
