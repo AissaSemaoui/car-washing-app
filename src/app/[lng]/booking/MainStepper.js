@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Button, Card, Flex, Stepper, Text } from "@mantine/core";
+import {
+  Button,
+  Card,
+  Flex,
+  LoadingOverlay,
+  Stepper,
+  Text,
+} from "@mantine/core";
 import "./booking.css";
 import VehicleChoice from "./VehicleChoice";
 import Packages from "./Packages";
@@ -90,6 +97,7 @@ function MainStepper({ lng }) {
   return (
     <Card className="stepper__card" shadow="md" radius="xl">
       <Card.Section>
+        <LoadingOverlay visible={isLoading} blur={3} />
         <Stepper
           active={active}
           onStepClick={setActive}
@@ -199,14 +207,20 @@ function MainStepper({ lng }) {
         </Stepper>
       </Card.Section>
       <Card.Section withBorder inheritPadding py="md">
-        <p className="error__message">{error}</p>
+        <p className="error__message">{t(error)}</p>
         <Flex justify="space-between">
-          <Button variant="outline" onClick={prevStep} size="lg">
+          <Button
+            variant="outline"
+            disabled={isLoading}
+            onClick={prevStep}
+            size="lg">
             {t("prev")}
           </Button>
-          <Button onClick={nextStep} size="lg">
-            {t("next")}
-          </Button>
+          {active < 5 && (
+            <Button onClick={nextStep} disabled={isLoading} size="lg">
+              {active === 4 ? t("bookNow") : t("next")}
+            </Button>
+          )}
         </Flex>
       </Card.Section>
     </Card>

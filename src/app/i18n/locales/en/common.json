@@ -29,5 +29,12 @@
   "street": "Street",
   "house": "House",
   "payment": "Payment",
-  "placeholderInput": "text here..."
+  "placeholderInput": "text here...",
+  "bookNow": "Book Now",
+  "selectVehicleErr": "Please select a vehicle",
+  "selectPackageErr": "Please select a package",
+  "scheduleDateErr": "Please schedule a date",
+  "paymentMethodErr": "Please select a payment method",
+  "bookingFailedErr": "Booking Failed!, Please try again",
+  "generatingInvoiceFailedErr": "Generating Invoice Failed!"
 }

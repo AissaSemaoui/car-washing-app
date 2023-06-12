@@ -5,7 +5,7 @@
   "booking": "حجز",
   "aboutUs": "من نحن",
   "signIn": "تسجيل الدخول",
-  "vehicleChoice": "اختيار نوع السيارة",
+  "vehicleChoice": "إختيار نوع السيارة",
   "packages": "الباقات",
   "extraServices": "الخدمات الإضافية",
   "time&date": "الوقت والتاريخ",
@@ -29,5 +29,12 @@
   "street": "الشارع",
   "house": "المنزل",
   "payment": "الدفع",
-  "placeholderInput": "إملأ هنا..."
+  "placeholderInput": "إملأ هنا...",
+  "bookNow": "إحجز الأن",
+  "selectVehicleErr": "يرجى تحديد مركبة",
+  "selectPackageErr": "يرجى تحديد حزمة",
+  "scheduleDateErr": "يرجى جدولة تاريخ",
+  "paymentMethodErr": "يرجى تحديد طريقة الدفع",
+  "bookingFailedErr": "فشل الحجز! يرجى المحاولة مرة أخرى",
+  "generatingInvoiceFailedErr": "فشل إنشاء الفاتورة!"
 }

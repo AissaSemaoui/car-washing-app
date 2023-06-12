@@ -11,28 +11,28 @@ export const validateStep = async (
   switch (active) {
     case 0:
       if (!formData?.selectedVehicle) {
-        setError("Please select a vehicle");
+        setError("selectVehicleErr");
         return false;
       }
       return true;
       break;
     case 1:
       if (!formData?.selectedPackageId) {
-        setError("Please select a package");
+        setError("selectPackageErr");
         return false;
       }
       return true;
       break;
     case 3:
       if (!formData?.scheduledDate.hour) {
-        setError("Please schedule a date");
+        setError("scheduleDateErr");
         return false;
       }
       return true;
       break;
     case 4:
       if (!formData.selectedPaymentMethod) {
-        setError("Please select a payment method");
+        setError("paymentMethodErr");
         return false;
       }
       return new Promise((resolve, reject) =>
@@ -58,7 +58,7 @@ export const validateStep = async (
           );
 
           if (!response.success) {
-            setError("Booking Failed!, Please try again");
+            setError("bookingFailedErr");
             reject(false);
           }
 
@@ -75,7 +75,7 @@ export const validateStep = async (
               const parsedResponse = JSON.parse(transaction.response);
               setInvoiceUrl(parsedResponse.Data.Do_TxnHdr[0].InvcURl);
             } else {
-              setError("Generating Invoice Failed!");
+              setError("generatingInvoiceFailedErr");
             }
           }
 

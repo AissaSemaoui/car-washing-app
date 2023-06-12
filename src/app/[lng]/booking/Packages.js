@@ -104,7 +104,8 @@ const PackageCard = ({
     <ul className="package__card--packagefeatures">
       {packagefeatures.map((feature, index) => (
         <li key={index} className="package__card--feature">
-          <TickCircle size="24" color="#37d67a" /> {feature}
+          <TickCircle size="24" style={{ minWidth: 24 }} color="#37d67a" />{" "}
+          {feature}
         </li>
       ))}
     </ul>
