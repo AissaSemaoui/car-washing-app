@@ -21,6 +21,7 @@ const handler = asyncError(async (req, res) => {
     const packageId = req.body.packageId;
     const extraservicesId = req.body.extraservicesId;
     const washpackage = await Washpackage.findById(packageId);
+    console.log(extraservicesId);
     const extraservices = extraservicesId
       ? await ExtraServices.findById(extraservicesId)
       : "";
@@ -29,9 +30,11 @@ const handler = asyncError(async (req, res) => {
       packageId: washpackage._id,
       packagename: washpackage.packagename,
       packageprice: Number(washpackage.packageprice[vehicletype]) || 0,
-      extraservicesId: extraservices?._id || "",
-      extraservicesname: extraservices?.extraservices || "",
     };
+    if (extraservices) {
+      bookingInfo.extraservicesId = extraservices?._id;
+      bookingInfo.extraservicesname = extraservices?.extraservices;
+    }
     const {
       firstname,
       lastname,
