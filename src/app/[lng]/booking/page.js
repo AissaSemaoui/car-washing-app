@@ -1,5 +1,3 @@
-"use client";
-
 import Hero from "../components/Hero";
 import Navbar from "../components/navbar/Navbar";
 import MainStepper from "./MainStepper";
