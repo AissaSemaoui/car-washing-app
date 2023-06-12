@@ -47,12 +47,12 @@ const handler = asyncError(async (req, res) => {
       body: JSON.stringify({
         Do_TxnDtl: [
           {
-            SubMerchUID: "mref2300013",
+            SubMerchUID: "mer23000146",
             Txn_AMT: booking.bookingthings[0].packageprice,
           },
         ],
         Do_TxnHdr: {
-          CreatedBy: "mref2300013",
+          CreatedBy: "mer23000146",
           dispatch_date: booking.bookingDateTime,
           DOExpirtyTyp: "1",
           Txn_Date: booking.createdAt,
@@ -80,7 +80,7 @@ const handler = asyncError(async (req, res) => {
         Do_MerchDtl: {
           BrnchUID: "",
           BKY_PRDENUM: "BInv",
-          MerchUID: "mref2300013",
+          MerchUID: "mer23000146",
           POSUID: "",
         },
         Do_UsrAuth: {
