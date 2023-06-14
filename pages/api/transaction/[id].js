@@ -34,7 +34,7 @@ const handler = asyncError(async (req, res) => {
 
     const bookingCreationTime = booking.createdAt;
     const expirationTime = new Date(bookingCreationTime);
-    expirationTime.setHours(expirationTime.getHours() + 24);
+    expirationTime.setHours(expirationTime.getHours() + 48);
 
     const options = {
       method: "POST",

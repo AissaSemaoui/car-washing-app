@@ -18,6 +18,7 @@ const dates = Array.from({ length: 7 }).map((_, index) => ({
 }));
 
 const TimeDate = ({ scheduledDate, occupiedDates, setFormData }) => {
+  console.log(scheduledDate);
   const scheduleDate = (date, hour) => {
     if (!date || !hour) return;
 
@@ -66,35 +67,44 @@ const TimeDate = ({ scheduledDate, occupiedDates, setFormData }) => {
               {label === "Sunday" ? (
                 <div className="timedate__times--closed">Closed</div>
               ) : (
-                new Array(times.to - times.from + 1).fill("").map((el, i) => {
-                  const hour = `${(i + times.from)
-                    .toString()
-                    .padStart(2, "0")}:00`;
+                new Array(Math.floor((times.to - times.from + 1) / 2))
+                  .fill("")
+                  .map((_, i) => {
+                    const startHour = times.from + i * 2;
+                    const endHour = startHour + 1;
 
-                  const isCurrentDate =
-                    scheduledDate?.date === date.format("L") &&
-                    scheduledDate?.hour === hour;
+                    const hour = `${startHour.toString().padStart(2, "0")}:30`;
 
-                  const isOccupiedTime = !!occupiedTimes.find(
-                    (d) => d?.date === date.format("L") && d?.hour === hour
-                  );
-                  return (
-                    <Button
-                      className={`timedate__btn ${
-                        isCurrentDate
-                          ? "timedate__btn--current"
-                          : isOccupiedTime
-                          ? "timedate__btn--occupied"
-                          : ""
-                      }`}
-                      variant="subtle"
-                      c="gray.8"
-                      onClick={() => scheduleDate(date, hour)}
-                      key={`time in ${label}: ${i}`}>
-                      {hour}
-                    </Button>
-                  );
-                })
+                    const labelHour = `${startHour
+                      .toString()
+                      .padStart(2, "0")}:00 - ${endHour
+                      .toString()
+                      .padStart(2, "0")}:00`;
+
+                    const isCurrentDate =
+                      scheduledDate?.date === date.format("L") &&
+                      scheduledDate?.hour === hour;
+
+                    const isOccupiedTime = !!occupiedTimes.find(
+                      (d) => d?.date === date.format("L") && d?.hour === hour
+                    );
+                    return (
+                      <Button
+                        className={`timedate__btn ${
+                          isCurrentDate
+                            ? "timedate__btn--current"
+                            : isOccupiedTime
+                            ? "timedate__btn--occupied"
+                            : ""
+                        }`}
+                        variant="subtle"
+                        c="gray.8"
+                        onClick={() => scheduleDate(date, hour)}
+                        key={`time in ${label}: ${i}`}>
+                        {labelHour}
+                      </Button>
+                    );
+                  })
               )}
             </div>
           </div>
