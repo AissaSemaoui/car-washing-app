@@ -45,7 +45,7 @@ const handler = asyncError(async (req, res) => {
     }
     res.status(200).json({
       success: true,
-      message: "assinged agent to customer",
+      message: "assinged agent to booking",
     });
   }
 });
