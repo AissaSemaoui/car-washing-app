@@ -38,8 +38,6 @@ const handler = asyncError(async (req, res) => {
       createdAt: "desc",
     });
 
-    console.log(availableAgents);
-
     res.status(200).json({
       success: true,
       message: "Getting Available Agents",

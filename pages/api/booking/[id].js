@@ -41,6 +41,7 @@ const handler = asyncError(async (req, res) => {
       await booking.save();
     } catch (err) {
       console.log(err);
+      return errorHandler(res, 400, "Failed assigning agent to booking");
     }
     res.status(200).json({
       success: true,
