@@ -12,39 +12,36 @@ const handler = asyncError(async (req, res) => {
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   });
   await connectDB();
-  const bookingId = req.query.id;
-  const booking = await Booking.findById(bookingId);
 
-  if (!booking) {
-    return errorHandler(res, 404, "Booking not found");
-  }
+  const bookingId = req.query.id;
+  const selectedBooking = await Booking.findOne({ _id: bookingId });
+
+  if (!selectedBooking) return errorHandler(res, 400, "Booking not Found");
 
   if (req.method === "GET") {
-    res.status(200).json({
-      success: true,
-      message: "Getting single booking data",
-      booking,
+    const desiredTime = new Date(selectedBooking.bookingDateTime);
+
+    const overlappingBookings = await Booking.find({
+      bookingDateTime: desiredTime,
     });
-  }
 
-  if (req.method === "PUT") {
-    const agentId = req.body.agentId;
-    const agent = await Agent.findById(agentId);
+    const bookedAgentsId = overlappingBookings.map(
+      (booking) => booking?.AgentInfo?.agentId || null
+    );
 
-    const agentInformation = {
-      agentId: agent._id,
-      agentname: agent.agentname,
-      agentphonenumber: agent.phonenumber,
-    };
-    booking.AgentInfo = agentInformation;
-    try {
-      await booking.save();
-    } catch (err) {
-      console.log(err);
-    }
+    const availableAgents = Agent.find(
+      {
+        _id: { $nin: bookedAgentsId },
+      },
+      "agentname _id"
+    );
+
+    console.log(availableAgents);
+
     res.status(200).json({
       success: true,
-      message: "assinged agent to customer",
+      message: "Getting Available Agents",
+      availableAgents,
     });
   }
 });

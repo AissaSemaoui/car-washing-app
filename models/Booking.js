@@ -64,23 +64,21 @@ const schema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  AgentInfo: [
-    {
-      agentId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Agent",
-        required: true,
-      },
-      agentname: {
-        type: String,
-        required: true,
-      },
-      agentphonenumber: {
-        type: String,
-        required: true,
-      },
+  AgentInfo: {
+    agentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Agent",
+      required: true,
     },
-  ],
+    agentname: {
+      type: String,
+      required: true,
+    },
+    agentphonenumber: {
+      type: String,
+      required: true,
+    },
+  },
 });
 
 mongoose.models = {};
