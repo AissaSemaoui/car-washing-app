@@ -38,7 +38,7 @@ export const validateStep = async (
         setError("paymentMethodErr");
         return false;
       }
-      return await new Promise((resolve, reject) =>
+      return new Promise((resolve, reject) =>
         userDetailsForm.onSubmit(async (values) => {
           const bookingData = {
             vehicletype: formData.selectedVehicle?.vehicletype,
