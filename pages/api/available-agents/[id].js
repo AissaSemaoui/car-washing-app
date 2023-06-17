@@ -34,7 +34,9 @@ const handler = asyncError(async (req, res) => {
         _id: { $nin: bookedAgentsId },
       },
       "agentname _id"
-    );
+    ).sort({
+      createdAt: "desc",
+    });
 
     console.log(availableAgents);
 
