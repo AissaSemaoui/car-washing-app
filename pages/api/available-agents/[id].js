@@ -29,7 +29,7 @@ const handler = asyncError(async (req, res) => {
       (booking) => booking?.AgentInfo?.agentId || null
     );
 
-    const availableAgents = Agent.find(
+    const availableAgents = await Agent.find(
       {
         _id: { $nin: bookedAgentsId },
       },
