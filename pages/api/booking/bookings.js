@@ -50,6 +50,9 @@ const handler = asyncError(async (req, res) => {
     const bookingDateTimeInIndia = new Date(
       bookingDate.toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
     );
+
+    console.log(bookingDate);
+
     const newBooking = new Booking({
       firstname,
       lastname,
@@ -59,7 +62,7 @@ const handler = asyncError(async (req, res) => {
       avenue,
       street,
       house,
-      bookingDateTime: bookingDateTimeInIndia,
+      bookingDateTime: bookingDate,
       createdAt: new Date(),
     });
 
@@ -70,7 +73,7 @@ const handler = asyncError(async (req, res) => {
     const message = `Your booking details are ${newBooking}`;
     sendWhatsAppMessage(to, message);
     // Calculate the reminder time
-    const reminderTime = bookingDateTimeInIndia.getTime() - 30 * 60 * 1000;
+    const reminderTime = bookingDate.getTime() - 30 * 60 * 1000;
     // Schedule a reminder notification
     if (reminderTime > Date.now()) {
       setTimeout(() => {
@@ -85,6 +88,7 @@ const handler = asyncError(async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    return errorHandler(res, 400, "Request Failed!");
   }
 });
 

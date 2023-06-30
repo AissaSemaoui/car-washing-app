@@ -68,15 +68,12 @@ const schema = new mongoose.Schema({
     agentId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Agent",
-      required: true,
     },
     agentname: {
       type: String,
-      required: true,
     },
     agentphonenumber: {
       type: String,
-      required: true,
     },
   },
 });
