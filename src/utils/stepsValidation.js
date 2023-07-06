@@ -39,52 +39,57 @@ export const validateStep = async (
         return false;
       }
       return await new Promise((resolve, reject) =>
-        userDetailsForm.onSubmit(async (values) => {
-          const bookingData = {
-            vehicletype: formData.selectedVehicle?.vehicletype,
-            packageId: formData.selectedPackageId,
-            extraservicesId: formData.extraservicesId,
-            firstname: values?.firstName,
-            lastname: values?.lastName,
-            phonenumber: values?.phoneNumber,
-            area: values?.area,
-            block: values?.block,
-            avenue: values?.avenue,
-            street: values?.street,
-            house: values?.house,
-            bookingDateTime: formData.scheduledDate?.fullDate,
-          };
+        userDetailsForm.onSubmit(
+          async (values) => {
+            const bookingData = {
+              vehicletype: formData.selectedVehicle?.vehicletype,
+              packageId: formData.selectedPackageId,
+              extraservicesId: formData.extraservicesId,
+              firstname: values?.firstName,
+              lastname: values?.lastName,
+              phonenumber: values?.phoneNumber,
+              area: values?.area,
+              block: values?.block,
+              avenue: values?.avenue,
+              street: values?.street,
+              house: values?.house,
+              bookingDateTime: formData.scheduledDate?.fullDate,
+            };
 
-          const response = await sendPostRequest(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/api/booking/bookings`,
-            bookingData
-          );
-
-          if (!response.success) {
-            setError("bookingFailedErr");
-            resolve(false);
-          }
-
-          if (
-            response.newBooking &&
-            formData.selectedPaymentMethod !== "Cash"
-          ) {
-            const transaction = await sendPostRequest(
-              `${process.env.NEXT_PUBLIC_BASE_URL}/api/transaction/${response?.newBooking?._id}`,
+            const response = await sendPostRequest(
+              `${process.env.NEXT_PUBLIC_BASE_URL}/api/booking/bookings`,
               bookingData
             );
 
-            if (transaction.success) {
-              const parsedResponse = JSON.parse(transaction.response);
-              setInvoiceUrl(parsedResponse.Data.Do_TxnHdr[0].InvcURl);
-            } else {
-              setError("generatingInvoiceFailedErr");
+            if (!response.success) {
+              setError("bookingFailedErr");
+              resolve(false);
             }
-          }
 
-          setFormData((prev) => ({ ...prev, userDetails: values }));
-          resolve(true);
-        })()
+            if (
+              response.newBooking &&
+              formData.selectedPaymentMethod !== "Cash"
+            ) {
+              const transaction = await sendPostRequest(
+                `${process.env.NEXT_PUBLIC_BASE_URL}/api/transaction/${response?.newBooking?._id}`,
+                bookingData
+              );
+
+              if (transaction.success) {
+                const parsedResponse = JSON.parse(transaction.response);
+                setInvoiceUrl(parsedResponse.Data.Do_TxnHdr[0].InvcURl);
+              } else {
+                setError("generatingInvoiceFailedErr");
+              }
+            }
+
+            setFormData((prev) => ({ ...prev, userDetails: values }));
+            resolve(true);
+          },
+          (error) => {
+            resolve(false);
+          }
+        )()
       );
 
       return false;

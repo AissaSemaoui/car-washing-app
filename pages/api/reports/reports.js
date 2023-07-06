@@ -1,5 +1,5 @@
 import NextCors from "nextjs-cors";
-import { asyncError } from "../../../middlewares/error";
+import { asyncError, errorHandler } from "../../../middlewares/error";
 import { Agent } from "../../../models/Agent";
 import { Booking } from "../../../models/Booking";
 import { Staff } from "../../../models/Staff";
@@ -30,6 +30,7 @@ const handler = asyncError(async (req, res) => {
       // Perform analytics and generate reports
       const totalBookings = await Booking.countDocuments();
       const totalEarnings = await Booking.aggregate([
+        { $unwind: "$bookingthings" },
         {
           $group: {
             _id: null,
@@ -37,11 +38,13 @@ const handler = asyncError(async (req, res) => {
           },
         },
       ]);
+
       const monthlyBookings = await Booking.countDocuments({
         createdAt: { $gte: lastMonthlyDate, $lte: currentDate },
       });
 
       const monthlyEarnings = await Booking.aggregate([
+        { $unwind: "$bookingthings" },
         {
           $match: {
             createdAt: { $gte: lastMonthlyDate, $lte: currentDate },
@@ -60,6 +63,7 @@ const handler = asyncError(async (req, res) => {
       });
 
       const threeMonthsEarnings = await Booking.aggregate([
+        { $unwind: "$bookingthings" },
         {
           $match: {
             createdAt: { $gte: last3MonthsDate, $lte: currentDate },
@@ -78,6 +82,7 @@ const handler = asyncError(async (req, res) => {
       });
 
       const yearlyEarnings = await Booking.aggregate([
+        { $unwind: "$bookingthings" },
         {
           $match: {
             createdAt: { $gte: lastYearDate, $lte: currentDate },

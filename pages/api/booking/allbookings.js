@@ -3,6 +3,7 @@ import { Booking } from "../../../models/Booking.js";
 import { asyncError, errorHandler } from "../../../middlewares/error.js";
 import NextCors from "nextjs-cors";
 import moment from "moment";
+import { Agent } from "../../../models/Agent.js";
 
 const handler = asyncError(async (req, res) => {
   await NextCors(req, res, {
@@ -37,23 +38,32 @@ const handler = asyncError(async (req, res) => {
       },
     });
 
-    console.log(bookings[0]?.AgentInfo);
-
-    console.log(selectedDay.toDate(), nextDay.toDate());
+    const agents = await Agent.find({}).sort({ createdAt: "desc" });
 
     const bookingsPerAgent = {};
 
-    bookings.forEach((booking) => {
-      if (!booking.AgentInfo?.agentId) return;
+    for (const agent of agents) {
+      const { _id, agentname, phonenumber } = agent;
 
-      if (!Array.isArray(bookingsPerAgent[booking.AgentInfo.agentId])) {
-        bookingsPerAgent[booking.AgentInfo.agentId] = [];
+      bookingsPerAgent[_id] = {
+        agentname,
+        phonenumber,
+        bookings: [],
+      };
+    }
+
+    for (const booking of bookings) {
+      const { AgentInfo } = booking;
+
+      if (!AgentInfo?.agentId) continue;
+
+      const agentId = AgentInfo.agentId;
+
+      if (!Array.isArray(bookingsPerAgent[agentId]?.bookings)) {
+        bookingsPerAgent[agentId].bookings = [];
       }
-      console.log(booking.AgentInfo?.agentname);
-      bookingsPerAgent[booking.AgentInfo?.agentId].push(booking);
-    });
-
-    console.log("this is bookings per agent : ", bookingsPerAgent);
+      bookingsPerAgent[agentId].bookings.push(booking);
+    }
 
     return res.status(200).json({
       success: true,

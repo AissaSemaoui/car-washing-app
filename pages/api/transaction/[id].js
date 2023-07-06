@@ -25,6 +25,8 @@ const handler = asyncError(async (req, res) => {
 
     const packagePrice = booking.bookingthings[0].packageprice;
 
+    console.log(booking.bookingthings[0]);
+
     if (!packagePrice)
       return errorHandler(
         res,
