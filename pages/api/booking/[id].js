@@ -46,23 +46,21 @@ const handler = asyncError(async (req, res) => {
         agentSupervisor: agentInformation.agentId,
       });
 
-      console.log("those are the agent staff : ", agentStaff);
-
       // Send WhatsApp message to Agent
       sendWhatsAppMessage(
         agentInformation.agentphonenumber,
-        `You have a new booking for ${
-          booking.bookingthings[0]?.vehicletype
-        } Auto and ${booking.bookingthings[0]?.packagename} package on ${moment(
-          booking.bookingDateTime
-        ).format("L")}`
+        `🚚 New booking alert! 📅 ${moment(booking.bookingDateTime).format(
+          "L"
+        )}: ${booking.bookingthings[0]?.vehicletype} Auto, ${
+          booking.bookingthings[0]?.packagename
+        } package. 🎉`
       );
 
       // Send WhatsApp message to Staff of the Agent
       agentStaff.forEach((staff) => {
         sendWhatsAppMessage(
           staff.phonenumber,
-          `You have a new booking on ${moment(booking.bookingDateTime).format(
+          `📣 New booking alert! 📅 ${moment(booking.bookingDateTime).format(
             "L"
           )}`
         );

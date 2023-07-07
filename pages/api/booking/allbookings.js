@@ -60,7 +60,7 @@ const handler = asyncError(async (req, res) => {
       const agentId = AgentInfo.agentId;
 
       if (!Array.isArray(bookingsPerAgent[agentId]?.bookings)) {
-        bookingsPerAgent[agentId].bookings = [];
+        bookingsPerAgent[agentId] = { bookings: [] };
       }
       bookingsPerAgent[agentId].bookings.push(booking);
     }
