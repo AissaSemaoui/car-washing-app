@@ -25,7 +25,7 @@ const TimeDate = ({ scheduledDate, occupiedDates, setFormData }) => {
     const scheduledDate = {
       date: date.format("L"),
       hour,
-      fullDate: `${date.format("L")} ${hour}`,
+      fullDate: `${date.format("L")} ${hour} UTC`,
     };
 
     setFormData((prev) => ({ ...prev, scheduledDate }));

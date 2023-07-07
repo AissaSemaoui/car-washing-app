@@ -16,29 +16,25 @@ const handler = asyncError(async (req, res) => {
     const { email, password } = req.body;
 
     // Find the admin based on the provided email
-    try {
-      const admin = await Admin.findOne({ email });
-      if (!admin) {
-        return errorHandler(res, 404, "User not found");
-      }
-
-      // Check if the password matches
-      if (admin.password !== password) {
-        return errorHandler(res, 401, "Invalid password");
-      }
-
-      // Secret key for signing JWT
-      const secretKey = process.env.secretJwtKey;
-      // Generate a JWT token
-      const token = jwt.sign({ userId: admin._id }, secretKey);
-
-      admin.token = token;
-      await admin.save();
-
-      res.json({ success: true, message: "Signed Successfully", token });
-    } catch (err) {
-      console.log(err);
+    const admin = await Admin.findOne({ email });
+    if (!admin) {
+      return errorHandler(res, 404, "User not found");
     }
+
+    // Check if the password matches
+    if (admin.password !== password) {
+      return errorHandler(res, 401, "Invalid password");
+    }
+
+    // Secret key for signing JWT
+    const secretKey = process.env.secretJwtKey;
+    // Generate a JWT token
+    const token = jwt.sign({ userId: admin._id }, secretKey);
+
+    admin.token = token;
+    await admin.save();
+
+    res.json({ success: true, message: "Signed Successfully", token });
   } else {
     errorHandler(res, 405, "Method Not Allowed");
   }
