@@ -21,7 +21,7 @@ const handler = asyncError(async (req, res) => {
     const packageId = req.body.packageId;
     const extraservicesId = req.body.extraservicesId;
     const washpackage = await Washpackage.findById(packageId);
-    console.log(extraservicesId);
+
     const extraservices = extraservicesId
       ? await ExtraServices.findById(extraservicesId)
       : "";
@@ -51,8 +51,6 @@ const handler = asyncError(async (req, res) => {
     const bookingDateTimeInIndia = new Date(
       bookingDate.toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
     );
-
-    console.log(bookingDate);
 
     const newBooking = new Booking({
       firstname,
@@ -88,7 +86,6 @@ const handler = asyncError(async (req, res) => {
       newBooking,
     });
   } catch (error) {
-    console.log(error);
     return errorHandler(res, 400, "Request Failed!");
   }
 });

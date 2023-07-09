@@ -23,7 +23,6 @@ function Navbar({ lng }) {
 
   const { t } = useTranslation(lng, "common");
 
-  console.log(lng, currentPath);
 
   const MENU_ITEMS = [
     {

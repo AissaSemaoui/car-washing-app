@@ -12,8 +12,6 @@ export const config = {
 const cookieName = "i18next";
 
 export function middleware(request) {
-  console.log(request.nextUrl.href);
-
   if (request.nextUrl.href.includes("/images")) {
     return NextResponse.next();
   }

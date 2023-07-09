@@ -18,7 +18,6 @@ const dates = Array.from({ length: 7 }).map((_, index) => ({
 }));
 
 const TimeDate = ({ scheduledDate, occupiedDates, setFormData }) => {
-  console.log(scheduledDate);
   const scheduleDate = (date, hour) => {
     if (!date || !hour) return;
 

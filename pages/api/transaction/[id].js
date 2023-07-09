@@ -25,8 +25,6 @@ const handler = asyncError(async (req, res) => {
 
     const packagePrice = booking.bookingthings[0].packageprice;
 
-    console.log(booking.bookingthings[0]);
-
     if (!packagePrice)
       return errorHandler(
         res,
@@ -107,7 +105,6 @@ const handler = asyncError(async (req, res) => {
         console.error("Payment API error:", error);
         return errorHandler(res, 500, "Payment API error");
       }
-      console.log(response, body, error);
       res.status(200).json({
         success: true,
         booking,
@@ -115,7 +112,6 @@ const handler = asyncError(async (req, res) => {
       });
     });
   } catch (error) {
-    console.error("Error processing payment:", error);
     errorHandler(res, 500, "Error processing payment");
   }
 });
