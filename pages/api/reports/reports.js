@@ -18,6 +18,15 @@ const handler = asyncError(async (req, res) => {
 
       // Calculate the date ranges for the last monthly, last 3 months, and last year
       const currentDate = new Date();
+
+      const todayStart = new Date();
+      todayStart.setHours(0, 0, 0, 0); // Set time to 00:00:00
+      const todayEnd = new Date();
+      todayEnd.setHours(23, 59, 59, 999); // Set time to 23:59:59.999
+
+      const lastWeekDate = new Date();
+      lastWeekDate.setDate(lastWeekDate.getDate() - 7);
+
       const lastMonthlyDate = new Date();
       lastMonthlyDate.setMonth(lastMonthlyDate.getMonth() - 1);
 
@@ -26,6 +35,45 @@ const handler = asyncError(async (req, res) => {
 
       const lastYearDate = new Date();
       lastYearDate.setFullYear(lastYearDate.getFullYear() - 1);
+
+      // Perform analytics and generate reports
+      const dailyBookings = await Booking.countDocuments({
+        createdAt: { $gte: todayStart, $lte: todayEnd },
+      });
+
+      const dailyEarnings = await Booking.aggregate([
+        { $unwind: "$bookingthings" },
+        {
+          $match: {
+            createdAt: { $gte: todayStart, $lte: todayEnd },
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            earnings: { $sum: "$bookingthings.packageprice" },
+          },
+        },
+      ]);
+
+      const weeklyBookings = await Booking.countDocuments({
+        createdAt: { $gte: lastWeekDate, $lte: currentDate },
+      });
+
+      const weeklyEarnings = await Booking.aggregate([
+        { $unwind: "$bookingthings" },
+        {
+          $match: {
+            createdAt: { $gte: lastWeekDate, $lte: currentDate },
+          },
+        },
+        {
+          $group: {
+            _id: null,
+            earnings: { $sum: "$bookingthings.packageprice" },
+          },
+        },
+      ]);
 
       // Perform analytics and generate reports
       const totalBookings = await Booking.countDocuments();
@@ -103,6 +151,14 @@ const handler = asyncError(async (req, res) => {
         success: true,
         message: "Reports and analytics retrieved successfully",
         data: {
+          daily: {
+            dailyBookings,
+            dailyEarnings: dailyEarnings[0] ? dailyEarnings[0].earnings : 0,
+          },
+          weekly: {
+            weeklyBookings,
+            weeklyEarnings: weeklyEarnings[0] ? weeklyEarnings[0].earnings : 0,
+          },
           monthly: {
             monthlyBookings,
             monthlyEarnings: monthlyEarnings[0]

@@ -57,7 +57,7 @@ export const validateStep = async (
             };
 
             const response = await sendPostRequest(
-              `${process.env.NEXT_PUBLIC_BASE_URL}/api/booking/bookings`,
+              `/api/booking/bookings`,
               bookingData
             );
 
@@ -71,7 +71,7 @@ export const validateStep = async (
               formData.selectedPaymentMethod !== "Cash"
             ) {
               const transaction = await sendPostRequest(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/transaction/${response?.newBooking?._id}`,
+                `/api/transaction/${response?.newBooking?._id}`,
                 bookingData
               );
 

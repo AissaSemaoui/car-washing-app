@@ -31,7 +31,9 @@ const handler = asyncError(async (req, res) => {
       packagename: washpackage.packagename,
       packageprice:
         Number(washpackage.packageprice[vehicletype.toLowerCase()]) || 0,
+      packageduration: Number(washpackage.packageduration),
     };
+    console.log(bookingInfo);
     if (extraservices) {
       bookingInfo.extraservicesId = extraservices?._id;
       bookingInfo.extraservicesname = extraservices?.extraservices;

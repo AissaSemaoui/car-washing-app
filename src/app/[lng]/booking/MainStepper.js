@@ -123,8 +123,8 @@ function MainStepper({ lng }) {
           </Stepper.Step>
           <Stepper.Step
             label={t("packages")}
-            allowStepClick={!!formData?.selectedVehicle}
-            allowStepSelect={!!formData?.selectedVehicle}
+            allowStepClick={!!formData?.selectedVehicle?.vehicletype}
+            allowStepSelect={!!formData?.selectedVehicle?.vehicletype}
             completedIcon={
               <img src="/images/step 2.png" className="stepper__icon" />
             }

@@ -48,6 +48,10 @@ const schema = new mongoose.Schema({
         type: Number,
         required: true,
       },
+      packageduration: {
+        type: Number,
+        // required: true,
+      },
       extraservicesId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "ExtraServices",

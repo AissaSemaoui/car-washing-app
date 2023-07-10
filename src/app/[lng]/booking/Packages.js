@@ -140,6 +140,6 @@ function Packages({ data, selectedVehicle, selectedPackageId, setFormData }) {
   );
 }
 
-const api_url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/wash-packages/allpackages`;
+const api_url = `/api/wash-packages/allpackages`;
 
 export default withDataFetching(api_url)(Packages);

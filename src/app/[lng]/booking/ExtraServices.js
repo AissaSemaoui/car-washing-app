@@ -53,6 +53,6 @@ function ExtraServices({ data, extraservicesId, setFormData }) {
   );
 }
 
-const api_url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/extra-services/allextraservices`;
+const api_url = `/api/extra-services/allextraservices`;
 
 export default withDataFetching(api_url)(ExtraServices);

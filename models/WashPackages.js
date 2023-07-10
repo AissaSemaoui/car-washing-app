@@ -11,6 +11,9 @@ const schema = new mongoose.Schema({
     pickup: Number,
     bike: Number,
   },
+  packageduration: {
+    type: Number,
+  },
   packagefeatures: {
     type: [String],
     required: true,

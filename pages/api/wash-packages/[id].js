@@ -20,10 +20,14 @@ const handler = asyncError(async (req, res) => {
       washPackage,
     });
   } else if (req.method === "PUT") {
-    const { packagename, packageprice, packagefeatures } = req.body;
+    console.log(req.body);
+
+    const { packagename, packageprice, packagefeatures, packageduration } =
+      req.body;
     if (packagename) washPackage.packagename = packagename;
     if (packageprice) washPackage.packageprice = packageprice;
     if (packagefeatures) washPackage.packagefeatures = packagefeatures;
+    if (packageduration) washPackage.packageduration = Number(packageduration);
 
     const response = await washPackage.save();
     res.status(200).json({

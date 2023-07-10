@@ -23,7 +23,7 @@ const handler = asyncError(async (req, res) => {
       message: "Extraservices updated successfully",
     });
   } else if (req.method === "DELETE") {
-    const response = await ExtraServices.deleteOne({ _id: extraserviceId });
+    await ExtraServices.deleteOne({ _id: extraserviceId });
 
     res.status(200).json({
       success: true,
