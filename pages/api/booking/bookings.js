@@ -37,6 +37,7 @@ const handler = asyncError(async (req, res) => {
     if (extraservices) {
       bookingInfo.extraservicesId = extraservices?._id;
       bookingInfo.extraservicesname = extraservices?.extraservices;
+      bookingInfo.extraservicesprice = extraservices?.extraservicesprice;
     }
     const {
       firstname,

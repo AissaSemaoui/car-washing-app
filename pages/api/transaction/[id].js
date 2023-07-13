@@ -40,7 +40,9 @@ const handler = asyncError(async (req, res) => {
       Do_TxnDtl: [
         {
           SubMerchUID: "mref23000358",
-          Txn_AMT: booking.bookingthings[0].packageprice,
+          Txn_AMT:
+            booking.bookingthings[0].packageprice +
+            (booking.bookingthings[0]?.extraservicesprice || 0),
         },
       ],
       Do_TxnHdr: {

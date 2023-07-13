@@ -15,8 +15,10 @@ const handler = asyncError(async (req, res) => {
   const extraservicess = await ExtraServices.findById(extraserviceId);
   if (!extraservicess) return errorHandler(res, 404, "extraservices not Found");
   if (req.method === "PUT") {
-    const { extraservices } = req.body;
+    const { extraservices, extraservicesprice } = req.body;
     if (extraservices) extraservicess.extraservices = extraservices;
+    if (extraservicesprice)
+      extraservicess.extraservicesprice = Number(extraservicesprice);
     await extraservicess.save();
     res.status(200).json({
       success: true,

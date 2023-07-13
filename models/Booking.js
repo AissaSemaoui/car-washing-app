@@ -59,6 +59,9 @@ const schema = new mongoose.Schema({
       extraservicesname: {
         type: String,
       },
+      extraservicesprice: {
+        type: Number,
+      },
     },
   ],
   bookingDateTime: {

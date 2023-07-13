@@ -13,10 +13,11 @@ const handler = asyncError(async (req, res) => {
   if (req.method != "POST")
     return errorHandler(res, 400, "only post method is allowed");
   await connectDB();
-  const { extraservices } = req.body;
+  const { extraservices, extraservicesprice } = req.body;
   if (!extraservices) return errorHandler(res, 400, "please add all fields");
   await ExtraServices.create({
     extraservices,
+    extraservicesprice,
   });
   res.json({
     success: true,

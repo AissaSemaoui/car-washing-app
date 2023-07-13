@@ -51,7 +51,15 @@ const handler = asyncError(async (req, res) => {
         {
           $group: {
             _id: null,
-            earnings: { $sum: "$bookingthings.packageprice" },
+            earnings: {
+              $sum: {
+                $cond: [
+                  { $ifNull: ["$bookingthings.extraservicesprice", false] },
+                  { $add: ["$bookingthings.packageprice", "$bookingthings.extraservicesprice"] },
+                  "$bookingthings.packageprice"
+                ]
+              }
+            },
           },
         },
       ]);
@@ -70,7 +78,15 @@ const handler = asyncError(async (req, res) => {
         {
           $group: {
             _id: null,
-            earnings: { $sum: "$bookingthings.packageprice" },
+            earnings: {
+              $sum: {
+                $cond: [
+                  { $ifNull: ["$bookingthings.extraservicesprice", false] },
+                  { $add: ["$bookingthings.packageprice", "$bookingthings.extraservicesprice"] },
+                  "$bookingthings.packageprice"
+                ]
+              }
+            },
           },
         },
       ]);
@@ -82,7 +98,15 @@ const handler = asyncError(async (req, res) => {
         {
           $group: {
             _id: null,
-            earnings: { $sum: "$bookingthings.packageprice" },
+            earnings: {
+              $sum: {
+                $cond: [
+                  { $ifNull: ["$bookingthings.extraservicesprice", false] },
+                  { $add: ["$bookingthings.packageprice", "$bookingthings.extraservicesprice"] },
+                  "$bookingthings.packageprice"
+                ]
+              }
+            },
           },
         },
       ]);
@@ -101,7 +125,15 @@ const handler = asyncError(async (req, res) => {
         {
           $group: {
             _id: null,
-            earnings: { $sum: "$bookingthings.packageprice" },
+            earnings: {
+              $sum: {
+                $cond: [
+                  { $ifNull: ["$bookingthings.extraservicesprice", false] },
+                  { $add: ["$bookingthings.packageprice", "$bookingthings.extraservicesprice"] },
+                  "$bookingthings.packageprice"
+                ]
+              }
+            },
           },
         },
       ]);
@@ -120,7 +152,15 @@ const handler = asyncError(async (req, res) => {
         {
           $group: {
             _id: null,
-            earnings: { $sum: "$bookingthings.packageprice" },
+            earnings: {
+              $sum: {
+                $cond: [
+                  { $ifNull: ["$bookingthings.extraservicesprice", false] },
+                  { $add: ["$bookingthings.packageprice", "$bookingthings.extraservicesprice"] },
+                  "$bookingthings.packageprice"
+                ]
+              }
+            },
           },
         },
       ]);
@@ -139,7 +179,15 @@ const handler = asyncError(async (req, res) => {
         {
           $group: {
             _id: null,
-            earnings: { $sum: "$bookingthings.packageprice" },
+            earnings: {
+              $sum: {
+                $cond: [
+                  { $ifNull: ["$bookingthings.extraservicesprice", false] },
+                  { $add: ["$bookingthings.packageprice", "$bookingthings.extraservicesprice"] },
+                  "$bookingthings.packageprice"
+                ]
+              }
+            },
           },
         },
       ]);
@@ -161,9 +209,7 @@ const handler = asyncError(async (req, res) => {
           },
           monthly: {
             monthlyBookings,
-            monthlyEarnings: monthlyEarnings[0]
-              ? monthlyEarnings[0].earnings
-              : 0,
+            monthlyEarnings: monthlyEarnings[0] ? monthlyEarnings[0].earnings : 0,
           },
           threeMonths: {
             threeMonthsBookings,
