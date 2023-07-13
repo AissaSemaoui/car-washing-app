@@ -76,8 +76,12 @@ export const validateStep = async (
               );
 
               if (transaction.success) {
-                const parsedResponse = JSON.parse(transaction.response);
-                setInvoiceUrl(parsedResponse.Data.Do_TxnHdr[0].InvcURl);
+                try {
+                  const parsedResponse = JSON.parse(transaction.response);
+                  setInvoiceUrl(parsedResponse?.Data.Do_TxnHdr[0]?.InvcURl);
+                } catch (error) {
+                  setError("generatingInvoiceFailedErr");
+                }
               } else {
                 setError("generatingInvoiceFailedErr");
               }

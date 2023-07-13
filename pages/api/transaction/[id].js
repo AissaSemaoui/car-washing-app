@@ -36,68 +36,72 @@ const handler = asyncError(async (req, res) => {
     const expirationTime = new Date(bookingCreationTime);
     expirationTime.setHours(expirationTime.getHours() + 48);
 
+    const paymentRequest = {
+      Do_TxnDtl: [
+        {
+          SubMerchUID: "mref23000358",
+          Txn_AMT: booking.bookingthings[0].packageprice,
+        },
+      ],
+      Do_TxnHdr: {
+        CreatedBy: "mref23000358",
+        dispatch_date: booking.bookingDateTime,
+        DOExpirtyTyp: "1",
+        Txn_Date: booking.createdAt,
+        Merch_Txn_UID: "99364796",
+        DOExpirty: expirationTime.toISOString(),
+      },
+      Do_Appinfo: {
+        AppLicens: "s",
+        AppTyp: "WAPP",
+        APPID: "CRM",
+        IPAddrs: "",
+        Country: "",
+        AppVer: "1.0",
+        MdlID: "CSR",
+        ApiVer: "1.0",
+      },
+      Do_PyrDtl: {
+        ISDNCD: "965",
+        Pyr_Remark: "",
+        Pyr_MPhone: booking.phonenumber,
+        Pyr_GovDocTyp: "CID",
+        Pyr_Name: booking.firstname + " " + booking.lastname,
+        PrfLang: "EN",
+      },
+      Do_MerchDtl: {
+        BrnchUID: "",
+        BKY_PRDENUM: "BInv",
+        MerchUID: "mref23000358",
+        POSUID: "",
+      },
+      Do_UsrAuth: {
+        UsrSessnUID:
+          "73bd664a94324428da6bd9085bb6a5bc85d4a21f460a599d9de19edb18f71dce634220ed5ae4ca54d1f31812387492b32049b21e0642fea6653f6f4e919b3709",
+        AuthTyp: "2",
+      },
+      DBRqst: "Save_N",
+      Do_Dvcinfo: {
+        DevcTyp: "",
+        DevOS: "",
+        MPhnOprtr: "",
+        DevID: "",
+        MPhnSIMID: "",
+      },
+      Do_MoreDtl: {},
+    };
+
+    const paymentRequestJson = JSON.stringify(paymentRequest);
+
     const options = {
       method: "POST",
-      url: "https://demo.bookeey.com/BKY/CSR/Invoice",
+      url: "https://api.bookeey.com/BKYAPPS/CSR/Invoice",
       headers: {
         "x-api-key":
           "9d6faae816329d7ee295305768802829ee5e1a4f28fd41e5a3d7b885c6864f7105ee227b67eefca1c4c86c69834acbf567b2bc1cb3be52058b976c3cdbd30473",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        Do_TxnDtl: [
-          {
-            SubMerchUID: "mref2300013",
-            Txn_AMT: booking.bookingthings[0].packageprice,
-          },
-        ],
-        Do_TxnHdr: {
-          CreatedBy: "mref2300013",
-          dispatch_date: booking.bookingDateTime,
-          DOExpirtyTyp: "1",
-          Txn_Date: booking.createdAt,
-          Merch_Txn_UID: "99364796",
-          DOExpirty: expirationTime.toISOString(),
-        },
-        Do_Appinfo: {
-          AppLicens: "s",
-          AppTyp: "WAPP",
-          APPID: "CRM",
-          IPAddrs: "",
-          Country: "",
-          AppVer: "1.0",
-          MdlID: "CSR",
-          ApiVer: "1.0",
-        },
-        Do_PyrDtl: {
-          ISDNCD: "965",
-          Pyr_Remark: "",
-          Pyr_MPhone: booking.phonenumber,
-          Pyr_GovDocTyp: "CID",
-          Pyr_Name: booking.firstname + " " + booking.lastname,
-          PrfLang: "EN",
-        },
-        Do_MerchDtl: {
-          BrnchUID: "",
-          BKY_PRDENUM: "BInv",
-          MerchUID: "mref2300013",
-          POSUID: "",
-        },
-        Do_UsrAuth: {
-          UsrSessnUID:
-            "73bd664a94324428da6bd9085bb6a5bc85d4a21f460a599d9de19edb18f71dce634220ed5ae4ca54d1f31812387492b32049b21e0642fea6653f6f4e919b3709",
-          AuthTyp: "2",
-        },
-        DBRqst: "Save_N",
-        Do_Dvcinfo: {
-          DevcTyp: "",
-          DevOS: "",
-          MPhnOprtr: "",
-          DevID: "",
-          MPhnSIMID: "",
-        },
-        Do_MoreDtl: {},
-      }),
+      body: paymentRequestJson,
     };
 
     request(options, function (error, response, body) {
@@ -105,6 +109,8 @@ const handler = asyncError(async (req, res) => {
         console.error("Payment API error:", error);
         return errorHandler(res, 500, "Payment API error");
       }
+
+      console.log(response.body, response.statusCode);
       res.status(200).json({
         success: true,
         booking,
