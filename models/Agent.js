@@ -6,7 +6,7 @@ const schema = new mongoose.Schema({
     required: [true, "please enter agent name"],
   },
   phonenumber: {
-    type: Number,
+    type: String,
     required: [true, "please enter phone number"],
   },
   createdAt: {
