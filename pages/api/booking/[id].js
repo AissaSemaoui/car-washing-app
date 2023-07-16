@@ -100,14 +100,18 @@ const handler = asyncError(async (req, res) => {
         agentSupervisor: agentInformation.agentId,
       });
 
+      const address = `${booking.area}, Block ${booking.block}, Avenue ${booking.avenue}, Street ${booking.street}, House ${booking.house}`;
+
       // Send WhatsApp message to Agent
       sendWhatsAppMessage(
         agentInformation.agentphonenumber,
         `🚚 New booking alert! 📅 ${moment(booking.bookingDateTime).format(
-          "L"
-        )}: ${booking.bookingthings[0]?.vehicletype} Auto, ${
+          "L, HH:mm"
+        )}: 
+${booking.bookingthings[0]?.vehicletype}, ${
           booking.bookingthings[0]?.packagename
-        } package. 🎉`
+        } package, 
+At ${address}`
       );
 
       // Send WhatsApp message to Staff of the Agent
@@ -115,7 +119,7 @@ const handler = asyncError(async (req, res) => {
         sendWhatsAppMessage(
           staff.phonenumber,
           `📣 New booking alert! 📅 ${moment(booking.bookingDateTime).format(
-            "L"
+            "L, HH:mm"
           )}`
         );
       });

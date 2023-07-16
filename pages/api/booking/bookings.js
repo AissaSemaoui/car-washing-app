@@ -5,6 +5,7 @@ import { ExtraServices } from "../../../models/ExtraServices.js";
 import { Washpackage } from "../../../models/WashPackages.js";
 import { connectDB } from "../../../utils/features.js";
 import { sendWhatsAppMessage } from "../../../sendWhatsAppMessage.js";
+import moment from "moment";
 
 const handler = asyncError(async (req, res) => {
   await NextCors(req, res, {
@@ -72,7 +73,12 @@ const handler = asyncError(async (req, res) => {
     await newBooking.save();
 
     const to = phonenumber;
-    const message = `Your booking details are ${newBooking}`;
+    const message = `عميلنا العزيز،
+شركة q8handclean تذكركم بموعدكم بتاريخ ${moment
+      .utc(newBooking.bookingDateTime)
+      .format("L HH:mm")}`;
+
+    console.log(message);
     sendWhatsAppMessage(to, message);
     // Calculate the reminder time
     const reminderTime = bookingDate.getTime() - 30 * 60 * 1000;
