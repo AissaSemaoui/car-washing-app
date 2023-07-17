@@ -16,7 +16,7 @@ const handler = asyncError(async (req, res) => {
     const { email, password } = req.body;
 
     // Find the admin based on the provided email
-    const admin = await Admin.findOne({ email });
+    const admin = await Admin.findOne({ email: email.toLowerCase() });
     if (!admin) {
       return errorHandler(res, 404, "User not found");
     }
