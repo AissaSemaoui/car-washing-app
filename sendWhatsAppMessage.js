@@ -12,7 +12,7 @@ export async function sendWhatsAppMessage(to, message) {
     //   const from = "whatsapp:+14155238886"; // Replace with your Twilio WhatsApp Sandbox phone number
     const response = await client.messages.create({
       body: message,
-      from: "whatsapp:+14155238886",
+      from: `whatsapp:${process.env.TWILIO_PHONE_NUMBER}`,
       to: `whatsapp:+${to.replace("+", "")}`,
     });
 
