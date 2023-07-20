@@ -115,8 +115,8 @@ At ${address}`
       );
 
       // Send WhatsApp message to Staff of the Agent
-      agentStaff.forEach((staff) => {
-        sendWhatsAppMessage(
+      agentStaff.forEach(async (staff) => {
+        await sendWhatsAppMessage(
           staff.phonenumber,
           `📣 New booking alert! 📅 ${moment(booking.bookingDateTime).format(
             "L, HH:mm"
