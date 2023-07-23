@@ -64,6 +64,7 @@ function UserDetails({
         <TextInput
           label={t("phoneNumber")}
           placeholder={t("placeholderInput")}
+          defaultValue='+965'
           size="md"
           variant="filled"
           className="user-details__input"
