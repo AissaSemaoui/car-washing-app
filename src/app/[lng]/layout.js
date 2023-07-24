@@ -21,6 +21,9 @@ export async function generateStaticParams() {
 export default function RootLayout({ children, params: { lng } }) {
   return (
     <html lang={lng} dir={dir(lng)}>
+      <head>
+        <link rel="icon" href="/logo.png" type="image/png" sizes="any" />
+      </head>
       <body className={openSans.className}>
         <ProviderWrapper lng={lng}>{children}</ProviderWrapper>
       </body>
