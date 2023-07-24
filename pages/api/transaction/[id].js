@@ -112,7 +112,6 @@ const handler = asyncError(async (req, res) => {
         return errorHandler(res, 500, "Payment API error");
       }
 
-      console.log(response.body, response.statusCode);
       res.status(200).json({
         success: true,
         booking,

@@ -79,7 +79,7 @@ const handler = asyncError(async (req, res) => {
       .format("L HH:mm")}`;
 
     console.log(message);
-    sendWhatsAppMessage(to, message);
+    await sendWhatsAppMessage(to, message);
     // Calculate the reminder time
     const reminderTime = bookingDate.getTime() - 30 * 60 * 1000;
     // Schedule a reminder notification
