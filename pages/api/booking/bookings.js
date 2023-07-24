@@ -4,7 +4,7 @@ import { Booking } from "../../../models/Booking.js";
 import { ExtraServices } from "../../../models/ExtraServices.js";
 import { Washpackage } from "../../../models/WashPackages.js";
 import { connectDB } from "../../../utils/features.js";
-import { sendWhatsAppMessage } from "../../../sendWhatsAppMessage.js";
+import { sendSMSMessage } from "../../../sendSMSMessage.js";
 import moment from "moment";
 
 const handler = asyncError(async (req, res) => {
@@ -79,14 +79,14 @@ const handler = asyncError(async (req, res) => {
       .format("L HH:mm")}`;
 
     console.log(message);
-    await sendWhatsAppMessage(to, message);
+    await sendSMSMessage(to, message);
     // Calculate the reminder time
     const reminderTime = bookingDate.getTime() - 30 * 60 * 1000;
     // Schedule a reminder notification
     if (reminderTime > Date.now()) {
       setTimeout(() => {
         const reminderMessage = `Reminder: Your booking is scheduled in 30 minutes.${newBooking}`;
-        sendWhatsAppMessage(to, reminderMessage);
+        sendSMSMessage(to, reminderMessage);
       }, reminderTime - Date.now());
     }
     res.status(200).json({

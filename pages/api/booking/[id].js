@@ -5,7 +5,7 @@ import { connectDB } from "../../../utils/features.js";
 import NextCors from "nextjs-cors";
 import { Staff } from "../../../models/Staff.js";
 import moment from "moment";
-import { sendWhatsAppMessage } from "../../../sendWhatsAppMessage.js";
+import { sendSMSMessage } from "../../../sendSMSMessage.js";
 
 const handler = asyncError(async (req, res) => {
   await NextCors(req, res, {
@@ -96,14 +96,16 @@ const handler = asyncError(async (req, res) => {
       };
       booking.AgentInfo = agentInformation;
 
+      await booking.save();
+
       const agentStaff = await Staff.find({
         agentSupervisor: agentInformation.agentId,
       });
 
       const address = `${booking.area}, Block ${booking.block}, Avenue ${booking.avenue}, Street ${booking.street}, House ${booking.house}`;
 
-      // Send WhatsApp message to Agent
-      sendWhatsAppMessage(
+      // Send SMS message to Agent
+      await sendSMSMessage(
         agentInformation.agentphonenumber,
         `🚚 New booking alert! 📅 ${moment(booking.bookingDateTime).format(
           "L, HH:mm"
@@ -116,15 +118,13 @@ At ${address}`
 
       // Send WhatsApp message to Staff of the Agent
       agentStaff.forEach(async (staff) => {
-        await sendWhatsAppMessage(
+        await sendSMSMessage(
           staff.phonenumber,
           `📣 New booking alert! 📅 ${moment(booking.bookingDateTime).format(
             "L, HH:mm"
           )}`
         );
       });
-
-      await booking.save();
     } catch (err) {
       console.log(err);
       return errorHandler(res, 400, "Failed assigning agent to booking");
